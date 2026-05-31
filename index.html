@@ -6,6 +6,23 @@
 <title>Varsco Pressure Washing | San Antonio</title>
 <meta name="description" content="Same-day driveway, house & exterior cleaning in San Antonio. Cleaner surfaces. Better curb appeal. Book online in 60 seconds.">
 
+<!-- ===== Analytics: Google Analytics 4 (free). Paste your Measurement ID below (format: G-XXXXXXXXXX). Tracking stays dormant until a real ID is set. ===== -->
+<script>
+(function(){
+  var GA_ID = "G-XXXXXXXXXX"; // <-- REPLACE with your GA4 Measurement ID
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){ dataLayer.push(arguments); };
+  if (GA_ID && GA_ID.indexOf("XXXX") === -1){
+    var s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
+    document.head.appendChild(s);
+    gtag("js", new Date());
+    gtag("config", GA_ID);
+  }
+})();
+</script>
+
 <!-- ============================================================
   SWAP-INS (replace before going live):
   1. BOOK NOW links: search "https://clienthub.getjobber.com/hubs/aa3d7c67-7e11-4541-9394-1f22f15141d6/public/requests/4811540/new" -> paste your Jobber online-booking URL
@@ -392,6 +409,19 @@ document.getElementById('burger').addEventListener('click',function(){
 // reveal on scroll
 var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}})},{threshold:.12});
 document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
+
+// ---- analytics: booking + contact click events ----
+(function(){
+  function on(sel, fn){ document.querySelectorAll(sel).forEach(function(el){ el.addEventListener('click', fn); }); }
+  // every booking button -> 'booking_click' tagged with which button (nav/hero/special/final_cta/footer)
+  on('a[href*="clienthub.getjobber.com"]', function(){
+    var m = (this.href.match(/utm_medium=([a-z_]+)/) || [])[1] || 'unknown';
+    gtag('event', 'booking_click', { button_location: m });
+  });
+  // click-to-call and Google review clicks too
+  on('a[href^="tel:"]', function(){ gtag('event', 'call_click', {}); });
+  on('a[href*="g.page/r/"]', function(){ gtag('event', 'review_click', {}); });
+})();
 </script>
 </body>
 </html>
