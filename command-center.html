@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Varsco Command Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#07182E;--navy-2:#0E2A4D;--blue:#1E8BFF;--blue-bright:#43A6FF;--ink:#0A0F16;--paper:#0a1626;--card:#0f2138;--slate:#8aa0bb;--line:rgba(255,255,255,.09);--good:#3ddc84;--gold:#FFB323}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Manrope',sans-serif;background:var(--paper);color:#eaf1fb;-webkit-font-smoothing:antialiased;min-height:100vh}
+h1,h2,.disp{font-family:'Anton',sans-serif;font-weight:400;letter-spacing:.5px;text-transform:uppercase}
+.wrap{max-width:1160px;margin:0 auto;padding:24px}
+/* gate */
+#gate{position:fixed;inset:0;z-index:100;background:radial-gradient(120% 120% at 80% -10%,#15406f,var(--navy) 70%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;padding:24px}
+#gate h1{font-size:2rem;color:#fff}
+#gate input{padding:.9rem 1.1rem;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:#fff;font-size:1rem;width:min(320px,90vw);text-align:center}
+#gate button{padding:.9rem 1.6rem;border:none;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--blue-bright));color:#fff;font-weight:800;font-size:1rem;cursor:pointer}
+#gate .err{color:#ff8a8a;font-weight:700;font-size:.9rem;min-height:1.2em}
+#app{display:none}
+/* header */
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:1.2rem;margin-bottom:1.6rem}
+.top h1{font-size:2rem;color:#fff}
+.top .sub{color:var(--slate);font-size:.9rem;margin-top:.2rem}
+.top .upd{color:var(--slate);font-size:.82rem}
+.eyebrow{font-weight:800;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-bright)}
+/* funnel */
+.funnel{display:flex;gap:.6rem;overflow-x:auto;padding:.4rem 0 1rem;margin-bottom:1.8rem}
+.node{flex:1 0 140px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:1rem;position:relative}
+.node .step{font-weight:800;font-size:.95rem;color:#fff}
+.node .nlabel{color:var(--slate);font-size:.74rem;margin:.15rem 0 .6rem;text-transform:uppercase;letter-spacing:.04em}
+.node .nstat{font-family:'Anton';font-size:1.5rem;color:var(--blue-bright)}
+.node:not(:last-child)::after{content:"›";position:absolute;right:-.55rem;top:50%;transform:translateY(-50%);color:var(--blue);font-size:1.4rem;font-weight:800;z-index:2}
+/* grid cards */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:1.3rem}
+.card.span2{grid-column:span 2}
+.card h2{font-size:.78rem;letter-spacing:.04em;color:var(--slate);text-transform:uppercase;font-family:'Manrope';font-weight:800;margin-bottom:.8rem}
+.big{font-family:'Anton';font-size:2.4rem;color:#fff;line-height:1}
+.sub2{color:var(--slate);font-size:.85rem;margin-top:.3rem}
+.bar{display:flex;align-items:center;gap:.6rem;margin:.5rem 0}
+.bar .lab{width:84px;font-size:.85rem;font-weight:700;color:#cfe0f5}
+.bar .track{flex:1;height:10px;background:rgba(255,255,255,.08);border-radius:6px;overflow:hidden}
+.bar .fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--blue-bright));border-radius:6px}
+.bar .val{width:34px;text-align:right;font-weight:800;font-size:.85rem}
+.stars{color:var(--gold);letter-spacing:2px}
+.conv{display:flex;align-items:baseline;gap:.5rem}
+.pill{display:inline-block;background:rgba(61,220,132,.15);color:var(--good);font-weight:800;font-size:.78rem;padding:.2rem .55rem;border-radius:999px}
+.foot{color:var(--slate);font-size:.8rem;margin-top:1.6rem;border-top:1px solid var(--line);padding-top:1rem;line-height:1.6}
+.foot a{color:var(--blue-bright)}
+@media(max-width:860px){.grid{grid-template-columns:repeat(2,1fr)}.card.span2{grid-column:span 2}}
+@media(max-width:520px){.grid{grid-template-columns:1fr}.card.span2{grid-column:span 1}.top h1{font-size:1.6rem}}
+</style>
+</head>
+<body>
+
+<!-- ===== PRIVACY GATE (deterrent-level; change PASSWORD below) ===== -->
+<div id="gate">
+  <div class="eyebrow">Varsco · Private</div>
+  <h1>Command Center</h1>
+  <input id="pw" type="password" placeholder="Enter password" autocomplete="off">
+  <button id="go">Unlock</button>
+  <div class="err" id="err"></div>
+</div>
+
+<div id="app">
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <div class="eyebrow">Varsco Pressure Washing</div>
+        <h1>Command Center</h1>
+        <div class="sub">Every avenue of the business, one screen.</div>
+      </div>
+      <div class="upd">Last updated: <b id="updated">—</b></div>
+    </div>
+
+    <div class="eyebrow" style="margin-bottom:.7rem">The funnel · You → Bookings</div>
+    <div class="funnel" id="funnel"></div>
+
+    <div class="grid">
+      <div class="card span2">
+        <h2>Leads by channel</h2>
+        <div id="channels"></div>
+      </div>
+      <div class="card">
+        <h2>Visitors → Bookings</h2>
+        <div class="conv"><span class="big" id="convRate">0%</span></div>
+        <div class="sub2"><span id="convV">0</span> visitors · <span id="convB">0</span> booked</div>
+      </div>
+      <div class="card">
+        <h2>Revenue (this month)</h2>
+        <div class="big" id="rev">$0</div>
+        <div class="sub2"><span id="jobs">0</span> jobs</div>
+      </div>
+      <div class="card">
+        <h2>Reputation</h2>
+        <div class="big"><span id="rating">5.0</span> <span class="stars">★★★★★</span></div>
+        <div class="sub2"><span id="rcount">7</span> Google reviews</div>
+      </div>
+      <div class="card">
+        <h2>Jobs</h2>
+        <div class="big" id="sched">0</div>
+        <div class="sub2"><span id="repeat">0</span> repeat customers</div>
+      </div>
+      <div class="card span2">
+        <h2>This week's focus</h2>
+        <div class="sub2" id="focus" style="font-size:.95rem;color:#cfe0f5;line-height:1.5">—</div>
+      </div>
+    </div>
+
+    <div class="foot">
+      <b>How to update:</b> open your <span id="sheetlink">Google Sheet control panel</span> in Drive, change the numbers, save. This page reads them automatically.<br>
+      Website numbers (visitors, channels) can auto-fill from Google Analytics later; the rest you type in once a week.
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   CONTROL PANEL CONFIG
+   1. PASSWORD: change this to your own secret word.
+   2. SHEET_CSV_URL: once your Google Sheet is "published to web" as CSV,
+      paste its link here and the dashboard updates itself from the Sheet.
+      Leave blank to use the starter numbers below.
+   ============================================================ */
+var PASSWORD = "varsco-change-me";
+var SHEET_CSV_URL = "";
+
+/* Starter data (mirrors your Google Sheet, key -> value) */
+var DATA = {
+  updated: "starter data",
+  higgsfield_videos: 2, ads_spend: 0, ads_reach: 0, social_views: 0, web_visitors: 0, bookings_requests: 0,
+  ig_leads: 0, tiktok_leads: 0, fb_leads: 0, google_leads: 0,
+  conv_visitors: 0, conv_bookings: 0,
+  revenue_month: 0, jobs_count: 0,
+  review_rating: "5.0", review_count: 7,
+  jobs_scheduled: 0, jobs_repeat: 0,
+  focus: "Get the site live, post 1 Higgsfield video, ask 3 customers for a Google review."
+};
+
+/* ---- gate ---- */
+function unlock(){
+  var v=document.getElementById('pw').value;
+  if(v===PASSWORD){ sessionStorage.setItem('vc_ok','1'); document.getElementById('gate').style.display='none'; document.getElementById('app').style.display='block'; render(); }
+  else { document.getElementById('err').textContent='Wrong password.'; }
+}
+document.getElementById('go').addEventListener('click',unlock);
+document.getElementById('pw').addEventListener('keydown',function(e){if(e.key==='Enter')unlock();});
+if(sessionStorage.getItem('vc_ok')==='1'){document.getElementById('gate').style.display='none';document.getElementById('app').style.display='block';}
+
+/* ---- data load (Sheet overrides starter) ---- */
+function loadThenRender(){
+  if(!SHEET_CSV_URL){ if(sessionStorage.getItem('vc_ok')==='1') render(); return; }
+  fetch(SHEET_CSV_URL).then(function(r){return r.text();}).then(function(t){
+    t.trim().split(/\r?\n/).forEach(function(line){
+      var p=line.split(','); if(p.length>=2){ var k=p[0].trim(); var val=p.slice(1).join(',').trim(); if(k) DATA[k]=isNaN(val)||val===''?val:Number(val); }
+    });
+    if(sessionStorage.getItem('vc_ok')==='1') render();
+  }).catch(function(){ if(sessionStorage.getItem('vc_ok')==='1') render(); });
+}
+
+/* ---- render ---- */
+function render(){
+  var d=DATA;
+  document.getElementById('updated').textContent=d.updated||'—';
+  document.getElementById('focus').textContent=d.focus||'—';
+  var funnel=[
+    {step:'You',label:'Ideas & jobs',stat:'★'},
+    {step:'Claude',label:'Build & copy',stat:'live'},
+    {step:'Higgsfield',label:'Videos made',stat:d.higgsfield_videos},
+    {step:'Meta Ads',label:'Spend · reach',stat:'$'+d.ads_spend},
+    {step:'Socials',label:'Views',stat:d.social_views},
+    {step:'Webpage',label:'Visitors',stat:d.web_visitors},
+    {step:'Bookings',label:'Requests',stat:d.bookings_requests}
+  ];
+  document.getElementById('funnel').innerHTML=funnel.map(function(n){
+    return '<div class="node"><div class="step">'+n.step+'</div><div class="nlabel">'+n.label+'</div><div class="nstat">'+n.stat+'</div></div>';
+  }).join('');
+  var ch=[['Instagram',d.ig_leads],['TikTok',d.tiktok_leads],['Facebook',d.fb_leads],['Google',d.google_leads]];
+  var max=Math.max(1,d.ig_leads,d.tiktok_leads,d.fb_leads,d.google_leads);
+  document.getElementById('channels').innerHTML=ch.map(function(c){
+    return '<div class="bar"><span class="lab">'+c[0]+'</span><span class="track"><span class="fill" style="width:'+(c[1]/max*100)+'%"></span></span><span class="val">'+c[1]+'</span></div>';
+  }).join('');
+  var rate=d.conv_visitors>0?Math.round(d.conv_bookings/d.conv_visitors*100):0;
+  document.getElementById('convRate').textContent=rate+'%';
+  document.getElementById('convV').textContent=d.conv_visitors;
+  document.getElementById('convB').textContent=d.conv_bookings;
+  document.getElementById('rev').textContent='$'+Number(d.revenue_month).toLocaleString();
+  document.getElementById('jobs').textContent=d.jobs_count;
+  document.getElementById('rating').textContent=d.review_rating;
+  document.getElementById('rcount').textContent=d.review_count;
+  document.getElementById('sched').textContent=d.jobs_scheduled;
+  document.getElementById('repeat').textContent=d.jobs_repeat;
+}
+loadThenRender();
+</script>
+</body>
+</html>
