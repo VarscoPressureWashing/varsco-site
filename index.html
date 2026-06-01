@@ -381,6 +381,34 @@ footer{background:var(--ink);color:#cdd8e6;padding:3.5rem 0 2rem}
   .special{padding:2rem}
   section.block{padding:4rem 0}
 }
+
+/* ---- SVG icons ---- */
+.feat .ic svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+/* ---- trust strip ---- */
+.trust{background:var(--white);border-bottom:1px solid rgba(7,24,46,.08)}
+.trust .wrap{display:flex;flex-wrap:wrap;gap:.9rem 2.2rem;justify-content:center;padding-top:1.05rem;padding-bottom:1.05rem}
+.trust-item{display:inline-flex;align-items:center;gap:.55rem;font-weight:700;font-size:.92rem;color:var(--navy)}
+.trust-item svg{width:20px;height:20px;stroke:var(--blue);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+/* ---- guarantee cards (reviews section) ---- */
+.rev .gic{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--blue-bright));display:flex;align-items:center;justify-content:center;margin-bottom:.9rem}
+.rev .gic svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.rev h4{font-family:'Manrope';font-weight:800;color:var(--navy);font-size:1.05rem;margin-bottom:.45rem}
+/* ---- sticky mobile action bar ---- */
+.mobilebar{display:none}
+.mobilebar .btn-call{background:var(--navy);color:#fff}
+@media(max-width:900px){
+  .mobilebar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:90;gap:.6rem;padding:.7rem .8rem calc(.7rem + env(safe-area-inset-bottom));background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-top:1px solid rgba(7,24,46,.1);box-shadow:0 -10px 30px -12px rgba(7,24,46,.28)}
+  .mobilebar .btn{flex:1;justify-content:center;padding:.95rem 1rem;font-size:1rem}
+  .mobilebar .btn-call{flex:0 0 auto;padding:.95rem 1.15rem}
+  body{padding-bottom:78px}
+}
+/* ---- a11y polish ---- */
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--blue-bright);outline-offset:2px;border-radius:8px}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none !important}
+  html{scroll-behavior:auto}
+  .reveal{opacity:1 !important;transform:none !important}
+}
 </style>
 </head>
 <body>
@@ -391,7 +419,7 @@ footer{background:var(--ink);color:#cdd8e6;padding:3.5rem 0 2rem}
     <div class="nav-links">
       <a href="#services">Services</a>
       <a href="#special">Pricing</a>
-      <a href="#reviews">Reviews</a>
+      <a href="#reviews">Guarantee</a>
       <a href="#area">Service Area</a>
       <a class="btn btn-primary nav-cta" href="https://clienthub.getjobber.com/hubs/aa3d7c67-7e11-4541-9394-1f22f15141d6/public/requests/4811540/new?utm_source=website&utm_medium=nav&utm_campaign=launch">Book Now</a>
     </div>
@@ -413,7 +441,7 @@ footer{background:var(--ink);color:#cdd8e6;padding:3.5rem 0 2rem}
       <div class="hero-meta">
         <div><b>$49</b>Driveway special</div>
         <div><b>Same&nbsp;day</b>Fast scheduling</div>
-        <div><b>5★</b>Local & family-run</div>
+        <div><b>100%</b>Satisfaction guaranteed</div>
       </div>
     </div>
     <div class="ba" id="ba">
@@ -426,6 +454,16 @@ footer{background:var(--ink);color:#cdd8e6;padding:3.5rem 0 2rem}
     </div>
   </div>
 </section>
+
+<!-- TRUST STRIP -->
+<div class="trust">
+  <div class="wrap">
+    <span class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg> Satisfaction guaranteed</span>
+    <span class="trust-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Local &amp; family-run</span>
+    <span class="trust-item"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> Secure online booking</span>
+    <span class="trust-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Same-day availability</span>
+  </div>
+</div>
 
 <!-- STRIP -->
 <div class="strip">
@@ -478,10 +516,10 @@ footer{background:var(--ink);color:#cdd8e6;padding:3.5rem 0 2rem}
       <p>A local crew that treats your property like our own.</p>
     </div>
     <div class="feat-grid">
-      <div class="feat reveal"><div class="ic">⚡</div><h4>Same-day service</h4><p>Catch us in your neighborhood and we'll often clean the same day.</p></div>
-      <div class="feat reveal"><div class="ic">📍</div><h4>Local & family-run</h4><p>San Antonio born. We know the homes, the HOAs, and the curb appeal that matters.</p></div>
-      <div class="feat reveal"><div class="ic">📸</div><h4>Before & after proof</h4><p>We document every job so you see exactly what changed.</p></div>
-      <div class="feat reveal"><div class="ic">✅</div><h4>Satisfaction first</h4><p>Not happy with a spot? We'll make it right before we leave.</p></div>
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M13 2 3 14 12 14 11 22 21 10 12 10z"/></svg></div><h4>Same-day service</h4><p>Catch us in your neighborhood and we'll often clean the same day.</p></div>
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><h4>Local & family-run</h4><p>San Antonio born. We know the homes, the HOAs, and the curb appeal that matters.</p></div>
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div><h4>Before & after proof</h4><p>We document every job so you see exactly what changed.</p></div>
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div><h4>Satisfaction first</h4><p>Not happy with a spot? We'll make it right before we leave.</p></div>
     </div>
   </div>
 </section>
@@ -489,15 +527,17 @@ footer{background:var(--ink);color:#cdd8e6;padding:3.5rem 0 2rem}
 <!-- REVIEWS -->
 <section class="block" id="reviews">
   <div class="wrap">
-    <div class="sec-head reveal" style="margin:0 auto 3rem;text-align:center">
-      <span class="eyebrow">What neighbors say</span>
-      <h2>Trusted across San Antonio</h2>
+    <div class="sec-head reveal" style="margin:0 auto 2.4rem;text-align:center">
+      <span class="eyebrow">Our promise</span>
+      <h2>Booked with confidence</h2>
+      <p style="max-width:54ch;margin:.6rem auto 0">We just launched in San Antonio and we're earning our reputation one spotless driveway at a time. Here's what every customer gets — in writing.</p>
     </div>
     <div class="rev-grid">
-      <div class="rev reveal"><div class="stars">★★★★★</div><p>"Driveway looked brand new — you could see the line where they stopped. Booked the fence on the spot."</p><div class="who">Maria L. <span class="sample">· sample</span></div></div>
-      <div class="rev reveal"><div class="stars">★★★★★</div><p>"Showed up same day, super professional, and the price was exactly what they quoted. Highly recommend."</p><div class="who">James R. <span class="sample">· sample</span></div></div>
-      <div class="rev reveal"><div class="stars">★★★★★</div><p>"Whole street got theirs done. Easiest booking I've ever dealt with for a home service."</p><div class="who">Dee P. <span class="sample">· sample</span></div></div>
+      <div class="rev reveal"><div class="gic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div><h4>Satisfaction guaranteed</h4><p>If a spot isn't right, we re-clean it free before we pack up. You never pay to be unhappy.</p></div>
+      <div class="rev reveal"><div class="gic"><svg viewBox="0 0 24 24"><path d="M20.59 13.41 11 3.83A2 2 0 0 0 9.59 3.24L4 3a1 1 0 0 0-1 1l.24 5.59a2 2 0 0 0 .59 1.41l9.58 9.59a2 2 0 0 0 2.83 0l4.35-4.35a2 2 0 0 0 0-2.83z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg></div><h4>The quote is the price</h4><p>The number we give you upfront is what you pay — no surprise add-ons, no upsell pressure.</p></div>
+      <div class="rev reveal"><div class="gic"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div><h4>Before &amp; after on every job</h4><p>We photograph the work so you see exactly what changed. Proof, not promises.</p></div>
     </div>
+    <p class="note">Newly launched — real Google reviews are on the way. <a href="https://g.page/r/CchDOTehB3EyEBM/review" target="_blank" rel="noopener" style="color:#1E8BFF;font-weight:800">Be one of our first ★</a></p>
   </div>
 </section>
 
@@ -555,7 +595,7 @@ footer{background:var(--ink);color:#cdd8e6;padding:3.5rem 0 2rem}
       <div class="foot-col">
         <h5>Company</h5>
         <a href="#special">Neighborhood special</a>
-        <a href="#reviews">Reviews</a>
+        <a href="#reviews">Guarantee</a>
         <a href="#area">Service area</a>
         <a href="https://clienthub.getjobber.com/hubs/aa3d7c67-7e11-4541-9394-1f22f15141d6/public/requests/4811540/new?utm_source=website&utm_medium=footer&utm_campaign=launch">Book online</a>
       </div>
@@ -601,5 +641,10 @@ document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
   on('a[href*="g.page/r/"]', function(){ gtag('event', 'review_click', {}); });
 })();
 </script>
+<!-- STICKY MOBILE ACTION BAR -->
+<div class="mobilebar">
+  <a class="btn btn-primary" href="https://clienthub.getjobber.com/hubs/aa3d7c67-7e11-4541-9394-1f22f15141d6/public/requests/4811540/new?utm_source=website&utm_medium=mobile_bar&utm_campaign=launch">Book $49 Special</a>
+  <a class="btn btn-call" href="tel:+12103551162" aria-label="Call Varsco at (210) 355-1162"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
+</div>
 </body>
 </html>
