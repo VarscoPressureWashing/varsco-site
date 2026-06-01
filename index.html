@@ -420,6 +420,11 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(-
 .rating-badge .stars{color:#FFB323;letter-spacing:2px}
 .rating-badge b{font-family:'Anton';font-size:1.35rem;letter-spacing:.5px}
 .rev .vrf{font-size:.7rem;color:#1E8BFF;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.work-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.4rem;max-width:720px;margin:0 auto}
+.work-card{position:relative;border-radius:20px;overflow:hidden;box-shadow:var(--shadow);background:#000;aspect-ratio:9/16;border:1px solid rgba(7,24,46,.1)}
+.work-card video{width:100%;height:100%;object-fit:cover;display:block;cursor:pointer}
+.work-tag{position:absolute;top:12px;left:12px;z-index:2;background:rgba(7,24,46,.78);color:#fff;font-weight:800;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .6rem;border-radius:8px;pointer-events:none}
+@media(max-width:560px){.work-grid{grid-template-columns:1fr;max-width:330px}}
 </style>
 </head>
 <body>
@@ -532,6 +537,21 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(-
       <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><h4>Local & family-run</h4><p>San Antonio born. We know the homes, the HOAs, and the curb appeal that matters.</p></div>
       <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div><h4>Before & after proof</h4><p>We document every job so you see exactly what changed.</p></div>
       <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div><h4>Satisfaction first</h4><p>Not happy with a spot? We'll make it right before we leave.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SEE IT IN ACTION -->
+<section class="block work">
+  <div class="wrap">
+    <div class="sec-head reveal" style="margin:0 auto 2.4rem;text-align:center">
+      <span class="eyebrow">See it in action</span>
+      <h2>Real jobs, real results</h2>
+      <p style="max-width:52ch;margin:.6rem auto 0">Filmed on the job right here in San Antonio. Tap play and watch the grime lift in real time.</p>
+    </div>
+    <div class="work-grid">
+      <div class="work-card reveal"><span class="work-tag">Driveway · San Antonio</span><video controls muted playsinline preload="none" poster="media/clean-driveway-1.jpg"><source src="media/clean-driveway-1.mp4" type="video/mp4">Your browser does not support video.</video></div>
+      <div class="work-card reveal"><span class="work-tag">Patio · San Antonio</span><video controls muted playsinline preload="none" poster="media/clean-driveway-2.jpg"><source src="media/clean-driveway-2.mp4" type="video/mp4">Your browser does not support video.</video></div>
     </div>
   </div>
 </section>
