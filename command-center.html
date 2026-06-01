@@ -124,7 +124,7 @@ h1,h2,.disp{font-family:'Anton',sans-serif;font-weight:400;letter-spacing:.5px;t
       paste its link here and the dashboard updates itself from the Sheet.
       Leave blank to use the starter numbers below.
    ============================================================ */
-var PASSWORD = "varsco-change-me";
+var PASSWORD = "Varscotx";
 var SHEET_CSV_URL = "";
 
 /* Starter data (mirrors your Google Sheet, key -> value) */
@@ -150,11 +150,22 @@ document.getElementById('pw').addEventListener('keydown',function(e){if(e.key===
 if(sessionStorage.getItem('vc_ok')==='1'){document.getElementById('gate').style.display='none';document.getElementById('app').style.display='block';}
 
 /* ---- data load (Sheet overrides starter) ---- */
+function parseCSV(text){
+  return text.trim().split(/\r?\n/).map(function(line){
+    var out=[],cur='',q=false;
+    for(var i=0;i<line.length;i++){var c=line[i];
+      if(q){ if(c=='"'){ if(line[i+1]=='"'){cur+='"';i++;} else q=false; } else cur+=c; }
+      else { if(c=='"')q=true; else if(c==','){out.push(cur);cur='';} else cur+=c; }
+    }
+    out.push(cur); return out;
+  });
+}
 function loadThenRender(){
   if(!SHEET_CSV_URL){ if(sessionStorage.getItem('vc_ok')==='1') render(); return; }
   fetch(SHEET_CSV_URL).then(function(r){return r.text();}).then(function(t){
-    t.trim().split(/\r?\n/).forEach(function(line){
-      var p=line.split(','); if(p.length>=2){ var k=p[0].trim(); var val=p.slice(1).join(',').trim(); if(k) DATA[k]=isNaN(val)||val===''?val:Number(val); }
+    parseCSV(t).forEach(function(f){
+      var k=(f[0]||'').trim(), val=(f[1]||'').trim();
+      if(k && k!=='key') DATA[k]=(val!=='' && !isNaN(val))?Number(val):val;
     });
     if(sessionStorage.getItem('vc_ok')==='1') render();
   }).catch(function(){ if(sessionStorage.getItem('vc_ok')==='1') render(); });
