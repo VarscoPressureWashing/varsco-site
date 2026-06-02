@@ -326,24 +326,25 @@ section.block{padding:5.5rem 0}
 .card.feature .desc{color:rgba(255,255,255,.85)}
 .card .badge{display:inline-block;background:rgba(255,255,255,.2);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.08em;padding:.25rem .55rem;border-radius:6px;margin-bottom:.6rem;text-transform:uppercase}
 .note{text-align:center;color:var(--slate);font-size:.9rem;margin-top:1.6rem}
-/* cinematic service selector */
-.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
-.svc-card{position:relative;display:block;border-radius:18px;overflow:hidden;aspect-ratio:4/3;color:#fff;text-decoration:none;box-shadow:var(--shadow);isolation:isolate}
+/* cinematic horizontal service selector (scroll sideways) */
+.svc-strip{position:relative}
+.svc-rail{display:flex;gap:1.1rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:.4rem .2rem 1.4rem;scrollbar-width:none}
+.svc-rail::-webkit-scrollbar{display:none}
+.svc-card{position:relative;display:block;flex:0 0 clamp(260px,32%,380px);scroll-snap-align:center;border-radius:18px;overflow:hidden;aspect-ratio:3/4;color:#fff;text-decoration:none;box-shadow:var(--shadow);isolation:isolate}
 .svc-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .7s cubic-bezier(.16,1,.3,1)}
-.svc-card::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(7,24,46,.05) 25%,rgba(7,24,46,.55) 62%,rgba(7,24,46,.92) 100%)}
+.svc-card::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(7,24,46,.05) 22%,rgba(7,24,46,.55) 58%,rgba(7,24,46,.93) 100%)}
 .svc-card:hover img{transform:scale(1.07)}
-.svc-body{position:absolute;left:0;right:0;bottom:0;padding:1.2rem}
-.svc-name{font-family:'Anton';font-size:1.55rem;letter-spacing:.5px;text-transform:uppercase}
-.svc-desc{font-size:.85rem;color:#d4e2f1;margin-top:.15rem;line-height:1.35}
-.svc-cta{display:inline-flex;align-items:center;gap:.3rem;margin-top:.7rem;font-weight:800;font-size:.85rem;color:var(--blue-bright);transition:gap .2s ease}
+.svc-body{position:absolute;left:0;right:0;bottom:0;padding:1.3rem}
+.svc-name{font-family:'Anton';font-size:1.7rem;letter-spacing:.5px;text-transform:uppercase}
+.svc-desc{font-size:.86rem;color:#d4e2f1;margin-top:.2rem;line-height:1.35}
+.svc-cta{display:inline-flex;align-items:center;gap:.3rem;margin-top:.8rem;font-weight:800;font-size:.85rem;color:var(--blue-bright);transition:gap .2s ease}
 .svc-card:hover .svc-cta{gap:.6rem}
-.svc-grid .reveal:nth-child(2){transition-delay:.05s}
-.svc-grid .reveal:nth-child(3){transition-delay:.1s}
-.svc-grid .reveal:nth-child(4){transition-delay:.15s}
-.svc-grid .reveal:nth-child(5){transition-delay:.2s}
-.svc-grid .reveal:nth-child(6){transition-delay:.25s}
-@media(max-width:900px){.svc-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.svc-grid{grid-template-columns:1fr}}
+.svc-arrow{position:absolute;top:calc(50% - 1.7rem);z-index:5;width:44px;height:44px;border-radius:50%;border:none;background:rgba(255,255,255,.94);color:var(--navy);font-size:1.5rem;font-weight:800;cursor:pointer;box-shadow:0 10px 26px -8px rgba(7,24,46,.55);display:flex;align-items:center;justify-content:center;line-height:1;transition:transform .15s}
+.svc-arrow:hover{transform:scale(1.08)}
+.svc-arrow#svcPrev{left:-12px}
+.svc-arrow.next{right:-12px}
+.svc-hint{text-align:center;color:var(--slate);font-size:.8rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+@media(max-width:560px){.svc-card{flex:0 0 82%}.svc-arrow{display:none}}
 
 /* why */
 .why{background:var(--navy);color:#fff}
@@ -527,14 +528,19 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(-
       <h2>Pick your service</h2>
       <p>From the roof to the driveway, choose the pressure washing your home needs — book in seconds and we'll confirm the quote.</p>
     </div>
-    <div class="svc-grid">
+    <div class="svc-strip">
+      <button class="svc-arrow" id="svcPrev" aria-label="Scroll services">‹</button>
+      <div class="svc-rail" id="svcRail">
       <a class="svc-card reveal" href="https://clienthub.getjobber.com/hubs/aa3d7c67-7e11-4541-9394-1f22f15141d6/public/requests/4811540/new?utm_source=website&utm_medium=svc_roof&utm_campaign=launch"><img src="media/service-roof.jpg" alt="Roof soft washing in San Antonio" loading="lazy"><div class="svc-body"><div class="svc-name">Roof</div><div class="svc-desc">Soft-wash off black streaks &amp; algae.</div><span class="svc-cta">Book this →</span></div></a>
       <a class="svc-card reveal" href="https://clienthub.getjobber.com/hubs/aa3d7c67-7e11-4541-9394-1f22f15141d6/public/requests/4811540/new?utm_source=website&utm_medium=svc_driveway&utm_campaign=launch"><img src="media/service-driveway.jpg" alt="Driveway pressure washing in San Antonio" loading="lazy"><div class="svc-body"><div class="svc-name">Driveway</div><div class="svc-desc">Lift dirt, oil &amp; stains from concrete.</div><span class="svc-cta">Book this →</span></div></a>
       <a class="svc-card reveal" href="https://clienthub.getjobber.com/hubs/aa3d7c67-7e11-4541-9394-1f22f15141d6/public/requests/4811540/new?utm_source=website&utm_medium=svc_house&utm_campaign=launch"><img src="media/service-house.jpg" alt="House soft wash in San Antonio" loading="lazy"><div class="svc-body"><div class="svc-name">House Wash</div><div class="svc-desc">Gentle soft wash for siding.</div><span class="svc-cta">Book this →</span></div></a>
       <a class="svc-card reveal" href="https://clienthub.getjobber.com/hubs/aa3d7c67-7e11-4541-9394-1f22f15141d6/public/requests/4811540/new?utm_source=website&utm_medium=svc_solar&utm_campaign=launch"><img src="media/service-solar.jpg" alt="Solar panel cleaning in San Antonio" loading="lazy"><div class="svc-body"><div class="svc-name">Solar Panels</div><div class="svc-desc">Restore efficiency &amp; shine.</div><span class="svc-cta">Book this →</span></div></a>
       <a class="svc-card reveal" href="https://clienthub.getjobber.com/hubs/aa3d7c67-7e11-4541-9394-1f22f15141d6/public/requests/4811540/new?utm_source=website&utm_medium=svc_fence&utm_campaign=launch"><img src="media/service-fence.jpg" alt="Fence cleaning in San Antonio" loading="lazy"><div class="svc-body"><div class="svc-name">Fence</div><div class="svc-desc">Wood or vinyl, brought back to life.</div><span class="svc-cta">Book this →</span></div></a>
       <a class="svc-card reveal" href="https://clienthub.getjobber.com/hubs/aa3d7c67-7e11-4541-9394-1f22f15141d6/public/requests/4811540/new?utm_source=website&utm_medium=svc_gutters&utm_campaign=launch"><img src="media/service-gutters.jpg" alt="Gutter cleaning in San Antonio" loading="lazy"><div class="svc-body"><div class="svc-name">Gutters</div><div class="svc-desc">Cleared, flushed &amp; flowing.</div><span class="svc-cta">Book this →</span></div></a>
+      </div>
+      <button class="svc-arrow next" id="svcNext" aria-label="Scroll services">›</button>
     </div>
+    <div class="svc-hint">Drag or scroll to explore →</div>
     <p class="note">Need more than one? Bundle and save — just tell us when you book.</p>
   </div>
 </section>
@@ -600,9 +606,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(-
       </div>
     </div>
     <div class="reveal">
-      <div class="ba" style="aspect-ratio:5/4">
-        <div class="ba-img ba-after" style="background:linear-gradient(135deg,#0E2A4D,#1E8BFF)">YOUR JOB PHOTO HERE</div>
-      </div>
+      <img src="media/area.jpg" alt="Greater San Antonio neighborhoods Varsco serves" loading="lazy" style="width:100%;border-radius:20px;box-shadow:var(--shadow);aspect-ratio:5/4;object-fit:cover;display:block">
     </div>
   </div>
 </section>
@@ -674,6 +678,15 @@ document.getElementById('burger').addEventListener('click',function(){
 // reveal on scroll
 var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}})},{threshold:.12});
 document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
+
+// horizontal service rail arrows
+(function(){
+  var rail=document.getElementById('svcRail');if(!rail)return;
+  function by(d){var c=rail.querySelector('.svc-card');var w=(c?c.offsetWidth:320)+18;rail.scrollBy({left:d*w,behavior:'smooth'});}
+  var p=document.getElementById('svcPrev'),n=document.getElementById('svcNext');
+  if(p)p.addEventListener('click',function(){by(-1);});
+  if(n)n.addEventListener('click',function(){by(1);});
+})();
 
 // hero parallax (transform-only, reduced-motion aware)
 (function(){
