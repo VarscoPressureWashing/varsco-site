@@ -326,6 +326,24 @@ section.block{padding:5.5rem 0}
 .card.feature .desc{color:rgba(255,255,255,.85)}
 .card .badge{display:inline-block;background:rgba(255,255,255,.2);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.08em;padding:.25rem .55rem;border-radius:6px;margin-bottom:.6rem;text-transform:uppercase}
 .note{text-align:center;color:var(--slate);font-size:.9rem;margin-top:1.6rem}
+/* cinematic service selector */
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
+.svc-card{position:relative;display:block;border-radius:18px;overflow:hidden;aspect-ratio:4/3;color:#fff;text-decoration:none;box-shadow:var(--shadow);isolation:isolate}
+.svc-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.svc-card::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(7,24,46,.05) 25%,rgba(7,24,46,.55) 62%,rgba(7,24,46,.92) 100%)}
+.svc-card:hover img{transform:scale(1.07)}
+.svc-body{position:absolute;left:0;right:0;bottom:0;padding:1.2rem}
+.svc-name{font-family:'Anton';font-size:1.55rem;letter-spacing:.5px;text-transform:uppercase}
+.svc-desc{font-size:.85rem;color:#d4e2f1;margin-top:.15rem;line-height:1.35}
+.svc-cta{display:inline-flex;align-items:center;gap:.3rem;margin-top:.7rem;font-weight:800;font-size:.85rem;color:var(--blue-bright);transition:gap .2s ease}
+.svc-card:hover .svc-cta{gap:.6rem}
+.svc-grid .reveal:nth-child(2){transition-delay:.05s}
+.svc-grid .reveal:nth-child(3){transition-delay:.1s}
+.svc-grid .reveal:nth-child(4){transition-delay:.15s}
+.svc-grid .reveal:nth-child(5){transition-delay:.2s}
+.svc-grid .reveal:nth-child(6){transition-delay:.25s}
+@media(max-width:900px){.svc-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.svc-grid{grid-template-columns:1fr}}
 
 /* why */
 .why{background:var(--navy);color:#fff}
@@ -371,7 +389,7 @@ footer{background:var(--ink);color:#cdd8e6;padding:3.5rem 0 2rem}
 .foot-bot{text-align:center;color:#6c809a;font-size:.85rem;margin-top:2rem}
 
 /* reveal */
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
 .reveal.in{opacity:1;transform:none}
 
 @keyframes rise{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:none}}
@@ -505,19 +523,19 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(-
 <section class="block" id="services" style="padding-top:0">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow">What we clean</span>
-      <h2>Pressure Washing Services &amp; Pricing</h2>
-      <p>Straightforward pricing, no surprises. Final quote depends on size and how dirty the surface is.</p>
+      <span class="eyebrow">What does your home need?</span>
+      <h2>Pick your service</h2>
+      <p>From the roof to the driveway, choose the pressure washing your home needs — book in seconds and we'll confirm the quote.</p>
     </div>
-    <div class="grid">
-      <div class="card feature reveal"><span class="badge">Most popular</span><div class="svc">Driveway Cleaning</div><div class="desc">Surface-cleaned to lift dirt, algae, oil and stains. Single to double-wide.</div><div class="price"><span class="from" style="color:rgba(255,255,255,.8)">Starting at</span><span class="std">$99</span><span class="from" style="color:rgba(255,255,255,.8)">· $49 neighborhood special</span></div></div>
-      <div class="card reveal"><div class="svc">House Wash (Soft Wash)</div><div class="desc">Gentle low-pressure exterior wash for siding — removes dirt, mildew & cobwebs.</div><div class="price"><span class="from">Starting at</span><span class="std">$299</span></div></div>
-      <div class="card reveal"><div class="svc">Fence Cleaning</div><div class="desc">Wood or vinyl fence wash to restore the original look.</div><div class="price"><span class="from">Starting at</span><span class="std">$129</span></div></div>
-      <div class="card reveal"><div class="svc">Patio &amp; Porch</div><div class="desc">Back patios and porches refreshed and brightened.</div><div class="price"><span class="from">Starting at</span><span class="std">$99</span></div></div>
-      <div class="card reveal"><div class="svc">Solar Panel Cleaning</div><div class="desc">Safe, careful cleaning to restore panel efficiency.</div><div class="price"><span class="from">Starting at</span><span class="std">$149</span></div></div>
-      <div class="card reveal"><div class="svc">Sidewalks · Trash Bins</div><div class="desc">Walkways from $49 · bins deodorized & sanitized from $20.</div><div class="price"><span class="from">Starting at</span><span class="std">$20</span></div></div>
+    <div class="svc-grid">
+      <a class="svc-card reveal" href="https://clienthub.getjobber.com/hubs/aa3d7c67-7e11-4541-9394-1f22f15141d6/public/requests/4811540/new?utm_source=website&utm_medium=svc_roof&utm_campaign=launch"><img src="media/service-roof.jpg" alt="Roof soft washing in San Antonio" loading="lazy"><div class="svc-body"><div class="svc-name">Roof</div><div class="svc-desc">Soft-wash off black streaks &amp; algae.</div><span class="svc-cta">Book this →</span></div></a>
+      <a class="svc-card reveal" href="https://clienthub.getjobber.com/hubs/aa3d7c67-7e11-4541-9394-1f22f15141d6/public/requests/4811540/new?utm_source=website&utm_medium=svc_driveway&utm_campaign=launch"><img src="media/service-driveway.jpg" alt="Driveway pressure washing in San Antonio" loading="lazy"><div class="svc-body"><div class="svc-name">Driveway</div><div class="svc-desc">Lift dirt, oil &amp; stains from concrete.</div><span class="svc-cta">Book this →</span></div></a>
+      <a class="svc-card reveal" href="https://clienthub.getjobber.com/hubs/aa3d7c67-7e11-4541-9394-1f22f15141d6/public/requests/4811540/new?utm_source=website&utm_medium=svc_house&utm_campaign=launch"><img src="media/service-house.jpg" alt="House soft wash in San Antonio" loading="lazy"><div class="svc-body"><div class="svc-name">House Wash</div><div class="svc-desc">Gentle soft wash for siding.</div><span class="svc-cta">Book this →</span></div></a>
+      <a class="svc-card reveal" href="https://clienthub.getjobber.com/hubs/aa3d7c67-7e11-4541-9394-1f22f15141d6/public/requests/4811540/new?utm_source=website&utm_medium=svc_solar&utm_campaign=launch"><img src="media/service-solar.jpg" alt="Solar panel cleaning in San Antonio" loading="lazy"><div class="svc-body"><div class="svc-name">Solar Panels</div><div class="svc-desc">Restore efficiency &amp; shine.</div><span class="svc-cta">Book this →</span></div></a>
+      <a class="svc-card reveal" href="https://clienthub.getjobber.com/hubs/aa3d7c67-7e11-4541-9394-1f22f15141d6/public/requests/4811540/new?utm_source=website&utm_medium=svc_fence&utm_campaign=launch"><img src="media/service-fence.jpg" alt="Fence cleaning in San Antonio" loading="lazy"><div class="svc-body"><div class="svc-name">Fence</div><div class="svc-desc">Wood or vinyl, brought back to life.</div><span class="svc-cta">Book this →</span></div></a>
+      <a class="svc-card reveal" href="https://clienthub.getjobber.com/hubs/aa3d7c67-7e11-4541-9394-1f22f15141d6/public/requests/4811540/new?utm_source=website&utm_medium=svc_gutters&utm_campaign=launch"><img src="media/service-gutters.jpg" alt="Gutter cleaning in San Antonio" loading="lazy"><div class="svc-body"><div class="svc-name">Gutters</div><div class="svc-desc">Cleared, flushed &amp; flowing.</div><span class="svc-cta">Book this →</span></div></a>
     </div>
-    <p class="note">Bundle and save — driveway + sidewalk, driveway + bins, or a full exterior refresh.</p>
+    <p class="note">Need more than one? Bundle and save — just tell us when you book.</p>
   </div>
 </section>
 
