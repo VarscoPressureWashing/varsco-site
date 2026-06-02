@@ -51,6 +51,17 @@ h1,h2,h3,.disp{font-family:'Anton',sans-serif;font-weight:400;letter-spacing:.5p
 .task.cur .dot{background:var(--amber);box-shadow:0 0 0 3px rgba(255,184,77,.18)}
 .task.done .dot{background:var(--good)}
 .task.done{color:#9fb6cf}
+.task .tbody{display:flex;align-items:center;flex-wrap:wrap;gap:.15rem .15rem;flex:1}
+.task .tlink{color:#cfe0f5;text-decoration:none;border-bottom:1px dashed rgba(255,255,255,.3);cursor:pointer}
+.task .tlink:hover{color:#fff;border-bottom-color:#fff}
+.task.done .tlink{color:#9fb6cf}
+.tvia{font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.03em;padding:.1rem .38rem;border-radius:5px;margin-left:.4rem;white-space:nowrap;align-self:center}
+.tvia.claude{background:rgba(67,166,255,.18);color:#43a6ff}
+.tvia.connector{background:rgba(61,220,132,.16);color:#3ddc84}
+.tvia.analytics{background:rgba(255,184,77,.16);color:#ffb84d}
+.tvia.webagent{background:rgba(190,140,255,.18);color:#c8a6ff}
+.tvia.manual{background:rgba(255,255,255,.1);color:#cdd9ea}
+.tvia.you{background:rgba(255,179,35,.16);color:#FFB323}
 .statrow{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.2rem}
 .stat{background:var(--card-2);border:1px solid var(--line);border-radius:12px;padding:.8rem 1rem;min-width:120px}
 .stat .v{font-family:'Anton';font-size:1.7rem;color:#fff}
@@ -145,20 +156,24 @@ var STAGES = [
  {id:'content',name:'Content',num:'✎'},
  {id:'you',name:'You',num:1,via:'you',vialabel:'You',
    link:'<b>Step 1.</b> You spot the work, set the direction, and approve everything before it ships. Nothing goes out without you.',
-   current:['Drop the deploy folder into Netlify to go live','(Optional) run the GitHub login to enable auto-publishing'],
-   done:['Approved the full site rebuild','Set the dashboard password','Provided real job videos & SAWS permit info']},
+   current:[{t:'Deploy the site — drag the folder into Netlify',url:'https://app.netlify.com',via:'you'},{t:'(Optional) run the GitHub login to enable auto-publish',via:'you'}],
+   done:[{t:'Approved the full site rebuild',via:'you'},{t:'Set the dashboard password',via:'you'},{t:'Provided real job videos, selfies & SAWS info',via:'you'}]},
  {id:'claude',name:'Claude',num:2,via:'claude',vialabel:'Claude Code',
-   link:'<b>Step 2.</b> I turn your ideas into the actual site, copy, tracking and this dashboard — built directly in Claude Code.',
-   current:['Deploy the site live (drag deploy folder to Netlify)','Build Video #1 (founder intro)','Auto-fill website numbers from Google Analytics'],
-   done:['Recovered your live site source','SEO + speed pass (270KB → 71KB)','Installed Google Analytics + click tracking','Added UTM tracking to every booking button','Featured your 7 real Google reviews','Added the job-video section','Built this Command Center','Trained your Higgsfield AI avatar','Proved the founder-content workflow']},
+   link:'<b>Step 2.</b> I turn your ideas into the actual site, copy, tracking, this dashboard, and your AI content — built directly in Claude Code.',
+   current:[{t:'Build Video #1 (founder intro)',url:'https://higgsfield.ai',via:'claude'},{t:'Auto-fill website numbers from Analytics',url:'https://analytics.google.com',via:'claude'}],
+   done:[{t:'Recovered the live site source',via:'claude'},{t:'SEO + speed pass (270KB to 71KB)',url:'https://varscoservices.com',via:'claude'},{t:'Installed Google Analytics + click tracking',url:'https://analytics.google.com',via:'claude'},{t:'UTM tracking on every booking button',via:'claude'},{t:'Featured the 7 real Google reviews',url:'https://g.page/r/CchDOTehB3EyEBM/review',via:'claude'},{t:'Added the job-video section',via:'claude'},{t:'Built this Command Center',via:'claude'},{t:'Trained the Higgsfield AI avatar',url:'https://higgsfield.ai',via:'claude'}]},
  {id:'higgsfield',name:'Higgsfield',num:3,via:'connector',vialabel:'MCP connector (live)',
-   link:'<b>Step 3.</b> AI content engine — now connected live via MCP. Trained an AI avatar (Soul) of you and proved identical-you clips by animating real selfies. Generates the founder-journey visuals.',
-   current:['Generate Video #1 clips (identical-you + real office b-roll)','Produce the 3 founder videos'],
-   done:['Connected Higgsfield via MCP','Trained AI avatar — Soul ID "Jacob"','Proved identical-you (animate real selfies, not text-gen)','Captured 2 real POV job videos'],
+   link:'<b>Step 3.</b> AI content engine — connected live via MCP. Trained an AI avatar (Soul) of you and proved identical-you clips by animating real selfies. Generates the founder-journey visuals.',
+   current:[{t:'Generate Video #1 clips (identical-you + office b-roll)',url:'https://higgsfield.ai',via:'connector'},{t:'Produce the 3 founder videos',url:'https://higgsfield.ai',via:'connector'}],
+   done:[{t:'Connected Higgsfield via MCP',via:'connector'},{t:'Trained AI avatar — Soul "Jacob"',url:'https://higgsfield.ai',via:'connector'},{t:'Proved identical-you (animate real selfies)',via:'connector'},{t:'Captured 2 real POV job videos',via:'manual'}],
    stats:[{l:'Videos made',k:'higgsfield_videos'}]},
+ {id:'capcut',name:'CapCut',num:'✂',via:'manual',vialabel:'Manual (editing app)',
+   link:'<b>Step 3.5.</b> Content assembly. Higgsfield makes the clips; CapCut stitches them — your real office footage + the identical-you clips + bold captions, graded but scene-untouched — into the finished video. Done by hand from the shot-by-shot recipe Claude provides.',
+   current:[{t:'Assemble Video #1 (drag clips + paste captions)',url:'https://www.capcut.com',via:'manual'},{t:'Color/brightness grade the office footage',url:'https://www.capcut.com',via:'manual'}],
+   done:[]},
  {id:'metaads',name:'Meta Ads',num:4,via:'webagent',vialabel:'Web agent / manual',
-   link:'<b>Step 4.</b> Paid promotion that pushes your videos to San Antonio homeowners. Meta locks its data, so this runs through the Ads Manager dashboard (a web agent can help set it up).',
-   current:['Set up the Meta Ads account','Launch a small $5–10/day test on the $49 driveway special','Point the ad link to the site with tracking'],
+   link:'<b>Step 4.</b> Paid promotion that pushes your videos to San Antonio homeowners. Meta locks its data, so this runs through Ads Manager (a web agent can help set it up).',
+   current:[{t:'Set up the Meta Ads account',url:'https://business.facebook.com/adsmanager',via:'manual'},{t:'Launch a small test boosting the founder content',url:'https://business.facebook.com/adsmanager',via:'webagent'}],
    done:[],
    stats:[{l:'Spend',k:'ads_spend',pre:'$'},{l:'Reach',k:'ads_reach'}]},
  {id:'socials',name:'Socials',num:5,via:'manual',vialabel:'Manual posting',
@@ -166,21 +181,21 @@ var STAGES = [
    stats:[{l:'Total views',k:'social_views'}],
    sub:[
      {id:'instagram',name:'Instagram',handle:'@varscopressurewashing',url:'https://www.instagram.com/varscopressurewashing/',via:'manual',vialabel:'Manual',
-       current:['Post the 2 job videos as Reels','Put your Instagram tracking link in the bio'],done:['Profile live (30+ followers)'],stats:[{l:'Leads',k:'ig_leads'}]},
+       current:[{t:'Post the founder videos as Reels',url:'https://www.instagram.com/varscopressurewashing/',via:'manual'},{t:'Put your IG tracking link in the bio',url:'https://www.instagram.com/varscopressurewashing/',via:'manual'}],done:[{t:'Profile live (30+ followers)',url:'https://www.instagram.com/varscopressurewashing/',via:'manual'}],stats:[{l:'Leads',k:'ig_leads'}]},
      {id:'tiktok',name:'TikTok',handle:'@varscopressurewashing',url:'https://www.tiktok.com/@varscopressurewashing',via:'manual',vialabel:'Manual',
-       current:['Post POV cleaning clips','Add your TikTok tracking link in bio'],done:['Profile created'],stats:[{l:'Leads',k:'tiktok_leads'}]},
+       current:[{t:'Post the founder experiment clips',url:'https://www.tiktok.com/@varscopressurewashing',via:'manual'},{t:'Add your TikTok tracking link in bio',url:'https://www.tiktok.com/@varscopressurewashing',via:'manual'}],done:[{t:'Profile created',url:'https://www.tiktok.com/@varscopressurewashing',via:'manual'}],stats:[{l:'Leads',k:'tiktok_leads'}]},
      {id:'facebook',name:'Facebook',handle:'Varsco Pressure Washing',url:'https://www.facebook.com/profile.php?id=61581823295729',via:'manual',vialabel:'Manual',
-       current:['Post before/after photos','Add your tracking link to the page button'],done:['Page live (38 likes)'],stats:[{l:'Leads',k:'fb_leads'}]}
+       current:[{t:'Post the $10k-goal video + before/afters',url:'https://www.facebook.com/profile.php?id=61581823295729',via:'manual'},{t:'Add your tracking link to the page button',url:'https://www.facebook.com/profile.php?id=61581823295729',via:'manual'}],done:[{t:'Page live (38 likes)',url:'https://www.facebook.com/profile.php?id=61581823295729',via:'manual'}],stats:[{l:'Leads',k:'fb_leads'}]}
    ]},
  {id:'webpage',name:'Webpage',num:6,via:'analytics',vialabel:'Analytics + Netlify',
    link:'<b>Step 6.</b> varscoservices.com — where the click becomes a customer. Visitor numbers flow in automatically from Google Analytics; the page lives on Netlify.',
-   current:['Go LIVE (deploy the new version)','Confirm your real business hours','Add a half-done driveway photo for the before/after slider'],
-   done:['Rebuilt faster & mobile-friendly','Sticky mobile Book/Call bar','Local SEO + Google schema','Real reviews + job videos on page'],
+   current:[{t:'Go LIVE (deploy the new version)',url:'https://app.netlify.com',via:'you'},{t:'Confirm your real business hours',via:'you'},{t:'Add a half-done driveway photo for the slider',via:'you'}],
+   done:[{t:'Rebuilt faster & mobile-friendly',url:'https://varscoservices.com',via:'claude'},{t:'Sticky mobile Book/Call bar',via:'claude'},{t:'Local SEO + Google schema',via:'claude'},{t:'Real reviews + job videos on page',via:'claude'}],
    stats:[{l:'Visitors',k:'web_visitors'},{l:'Conv. %',k:'__conv'}]},
  {id:'bookings',name:'Bookings',num:7,via:'manual',vialabel:'Jobber link',
    link:'<b>Step 7.</b> The finish line — Jobber. Every "Book Now" button sends customers to your Jobber request form, then quote → invoice → paid.',
-   current:['Check whether Jobber shows the tracking source on new requests','Set up post-job review-request texts'],
-   done:['Jobber booking form live','Booking link wired into all 6 site buttons'],
+   current:[{t:'Check whether Jobber shows the tracking source on new requests',url:'https://clienthub.getjobber.com/hubs/aa3d7c67-7e11-4541-9394-1f22f15141d6/public/requests/4811540/new',via:'manual'},{t:'Set up post-job review-request texts',via:'manual'}],
+   done:[{t:'Jobber booking form live',url:'https://clienthub.getjobber.com/hubs/aa3d7c67-7e11-4541-9394-1f22f15141d6/public/requests/4811540/new',via:'manual'},{t:'Booking link wired into all 6 site buttons',via:'claude'}],
    stats:[{l:'Requests',k:'bookings_requests'},{l:'Revenue',k:'revenue_month',pre:'$'},{l:'Rating',k:'review_rating',suf:' ★'}]}
 ];
 
@@ -233,7 +248,15 @@ function buildNav(){document.getElementById('nav').innerHTML=STAGES.map(function
 document.getElementById('mtoggle').addEventListener('click',function(){document.getElementById('side').classList.toggle('open');});
 
 function statHTML(arr){if(!arr||!arr.length)return '';return '<div class="statrow">'+arr.map(function(s){var val;if(s.k==='__conv'){val=(DATA.conv_visitors>0?Math.round(DATA.conv_bookings/DATA.conv_visitors*100):0)+'%';}else{val=(s.pre||'')+ (typeof DATA[s.k]==='number'?Number(DATA[s.k]).toLocaleString():DATA[s.k]) +(s.suf||'');}return '<div class="stat"><div class="v">'+val+'</div><div class="l">'+s.l+'</div></div>';}).join('')+'</div>';}
-function tasks(title,arr,cls){return '<div class="box"><h3>'+title+'</h3>'+((arr&&arr.length)?arr.map(function(t){return '<div class="task '+cls+'"><span class="dot"></span><span>'+t+'</span></div>';}).join(''):'<div class="task '+cls+'" style="color:#7c93ad"><span>Nothing yet.</span></div>')+'</div>';}
+var VIA_LABEL={claude:'Claude',connector:'Connector',analytics:'Analytics',webagent:'Web agent',manual:'Manual',you:'You'};
+function tasks(title,arr,cls){
+  var rows=(arr&&arr.length)?arr.map(function(o){
+    var body=o.url?'<a class="tlink" href="'+o.url+'" target="_blank" rel="noopener">'+o.t+' &#8599;</a>':'<span>'+o.t+'</span>';
+    var via=o.via?'<span class="tvia '+o.via+'">'+(VIA_LABEL[o.via]||o.via)+'</span>':'';
+    return '<div class="task '+cls+'"><span class="dot"></span><span class="tbody">'+body+via+'</span></div>';
+  }).join(''):'<div class="task '+cls+'"><span class="dot"></span><span style="color:#7c93ad">Nothing yet.</span></div>';
+  return '<div class="box"><h3>'+title+'</h3>'+rows+'</div>';
+}
 function viaBadge(s){return '<span class="via '+s.via+'">'+s.vialabel+'</span>';}
 
 function panelFor(s){
