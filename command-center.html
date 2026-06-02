@@ -187,22 +187,24 @@ var STAGES = [
 /* ===== CONTENT PIPELINE ===== */
 var STATUS_COLORS={'Idea':'#8aa0bb','Script':'#43a6ff','Filming':'#c8a6ff','Generating':'#c8a6ff','Editing':'#ffb84d','Ready':'#3ddc84','Posted':'#3ddc84'};
 var CONTENT_IDEAS=[
- {title:'Driveway transformation reel',plat:['Instagram','TikTok'],status:'Editing',note:'The 2 glasses clips cut into a 12-second satisfying reveal.'},
- {title:'$49 Neighborhood Blitz ad',plat:['Facebook','Instagram'],status:'Script',note:'Higgsfield Marketing Studio ad for the special — hook written by Claude.'},
- {title:'Oil-stain rescue story',plat:['TikTok','Instagram'],status:'Idea',note:"Reenact Diego's real 1-hour oil-stain save (straight from the review)."},
- {title:'Sudsy patio satisfying clean',plat:['Instagram','TikTok'],status:'Ready',note:'From the real patio clip — oddly-satisfying foam reveal.'},
- {title:'Meet Jacob — founder intro',plat:['Facebook','Instagram'],status:'Idea',note:'Authentic real-face trust builder. No AI — just you.'},
- {title:'AI Soul hook test',plat:['TikTok'],status:'Idea',note:'Stylized influencer-style hook once the Soul ID is trained.'}
+ {title:'Day 1: I let AI rebuild my whole website',plat:['TikTok','Instagram'],status:'Idea',note:'Build-in-public hook — old site vs. new in 15 seconds.'},
+ {title:"AI found 7 reviews I didn't know I had",plat:['TikTok','Instagram'],status:'Idea',note:'Real moment from the build — surprise + instant credibility.'},
+ {title:'I built a command center to see if AI gets me customers',plat:['TikTok','Instagram'],status:'Idea',note:'Screen-record this dashboard — the scoreboard of the experiment.'},
+ {title:'Can $0 + AI book a real driveway? (the experiment)',plat:['TikTok','Instagram','Facebook'],status:'Script',note:'The through-line CTA: book the $49 special and become the proof.'},
+ {title:'Driveway transformation reel',plat:['Instagram','TikTok'],status:'Editing',note:'Real glasses footage cut to a 12-second satisfying reveal.'},
+ {title:'Oil-stain rescue story',plat:['TikTok','Instagram'],status:'Idea',note:"Diego's real 1-hour oil-stain save, straight from the review."},
+ {title:'Sudsy patio satisfying clean',plat:['Instagram','TikTok'],status:'Ready',note:'Real patio clip — oddly-satisfying foam reveal.'},
+ {title:'Meet Jacob — founder intro',plat:['Facebook','Instagram'],status:'Idea',note:'The real human behind the AI. Authentic trust builder.'}
 ];
 var PLATFORM_VISION=[
- {name:'Instagram',color:'#E1306C',vibe:'Polished & aspirational',desc:'Clean before/afters and Reels. Curb-appeal aesthetic — "your home, but better." Tracking link in bio, story highlights for reviews.'},
- {name:'TikTok',color:'#69C9D0',vibe:'Raw & satisfying',desc:'POV cleaning, oddly-satisfying reveals, fast first-second hooks + trending sounds. Built for volume and virality.'},
- {name:'Facebook',color:'#1877F2',vibe:'Local trust & offers',desc:'Neighborhood-targeted posts, the $49 special, real reviews, community vibe. Where San Antonio homeowners actually are.'}
+ {name:'TikTok',color:'#69C9D0',vibe:'The AI experiment, raw',desc:'"Day X of building a real business with AI." Fast hooks, the build-in-public story + satisfying cleans. This is where the reach and the experiment live.'},
+ {name:'Instagram',color:'#E1306C',vibe:'The founder journey, polished',desc:'Building a business with AI, made beautiful — setup wins, before/afters, the brand taking shape. Aspirational + credible. Tracking link in bio.'},
+ {name:'Facebook',color:'#1877F2',vibe:'Local & ready to book',desc:'San Antonio homeowners. Less AI-talk, more "book your driveway" — the $49 special, real reviews, neighborhood proof. Where local leads convert.'}
 ];
 function hexa(hex,a){var n=parseInt(hex.slice(1),16);return 'rgba('+((n>>16)&255)+','+((n>>8)&255)+','+(n&255)+','+a+')';}
 function renderContent(){
   var h='<div class="phead"><h1>Content Pipeline</h1><span class="via claude">Editable</span></div>';
-  h+='<div class="flink">Every video idea and its status. Edit in your <b>control-panel Sheet</b> — add rows named <i>idea1, idea2…</i> with value <i>Title | platforms | status | note</i> — or just tell me to update one.</div>';
+  h+='<div class="flink"><b>The angle:</b> building a real San Antonio business with AI — and proving it can land real paying customers. The cleaning footage is the proof; the build is the hook. Edit ideas in your <b>control-panel Sheet</b> (rows <i>idea1, idea2…</i> as <i>Title | platforms | status | note</i>) or just tell me.</div>';
   h+='<div class="ideas">'+CONTENT_IDEAS.map(function(it){
     var col=STATUS_COLORS[it.status]||'#8aa0bb';
     return '<div class="idea"><div class="ihead"><span class="ititle">'+it.title+'</span><span class="ist" style="background:'+hexa(col,.16)+';color:'+col+'">'+it.status+'</span></div><div class="iplat">'+(it.plat||[]).map(function(p){return '<span>'+p+'</span>';}).join('')+'</div><div class="inote">'+it.note+'</div></div>';
