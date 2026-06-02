@@ -149,12 +149,12 @@ var STAGES = [
    done:['Approved the full site rebuild','Set the dashboard password','Provided real job videos & SAWS permit info']},
  {id:'claude',name:'Claude',num:2,via:'claude',vialabel:'Claude Code',
    link:'<b>Step 2.</b> I turn your ideas into the actual site, copy, tracking and this dashboard — built directly in Claude Code.',
-   current:['Get the site deployed live','Auto-fill website numbers from Google Analytics','Trim job videos into short loops (on request)'],
-   done:['Recovered your live site source','SEO + speed pass (270KB → 71KB)','Installed Google Analytics + click tracking','Added UTM tracking to every booking button','Featured your 7 real Google reviews','Added the job-video section','Built this Command Center']},
- {id:'higgsfield',name:'Higgsfield',num:3,via:'manual',vialabel:'Manual / web app',
-   link:'<b>Step 3.</b> Where raw clips become scroll-stopping ad videos. No connector exists, so this is done by hand in the Higgsfield app — then exported for ads & socials.',
-   current:['Turn the 2 glasses clips into a polished ad','Make a 10-second driveway "before/after" reel'],
-   done:['Captured 2 real POV job videos (driveway + patio)'],
+   current:['Deploy the site live (drag deploy folder to Netlify)','Build Video #1 (founder intro)','Auto-fill website numbers from Google Analytics'],
+   done:['Recovered your live site source','SEO + speed pass (270KB → 71KB)','Installed Google Analytics + click tracking','Added UTM tracking to every booking button','Featured your 7 real Google reviews','Added the job-video section','Built this Command Center','Trained your Higgsfield AI avatar','Proved the founder-content workflow']},
+ {id:'higgsfield',name:'Higgsfield',num:3,via:'connector',vialabel:'MCP connector (live)',
+   link:'<b>Step 3.</b> AI content engine — now connected live via MCP. Trained an AI avatar (Soul) of you and proved identical-you clips by animating real selfies. Generates the founder-journey visuals.',
+   current:['Generate Video #1 clips (identical-you + real office b-roll)','Produce the 3 founder videos'],
+   done:['Connected Higgsfield via MCP','Trained AI avatar — Soul ID "Jacob"','Proved identical-you (animate real selfies, not text-gen)','Captured 2 real POV job videos'],
    stats:[{l:'Videos made',k:'higgsfield_videos'}]},
  {id:'metaads',name:'Meta Ads',num:4,via:'webagent',vialabel:'Web agent / manual',
    link:'<b>Step 4.</b> Paid promotion that pushes your videos to San Antonio homeowners. Meta locks its data, so this runs through the Ads Manager dashboard (a web agent can help set it up).',
@@ -187,14 +187,11 @@ var STAGES = [
 /* ===== CONTENT PIPELINE ===== */
 var STATUS_COLORS={'Idea':'#8aa0bb','Script':'#43a6ff','Filming':'#c8a6ff','Generating':'#c8a6ff','Editing':'#ffb84d','Ready':'#3ddc84','Posted':'#3ddc84'};
 var CONTENT_IDEAS=[
- {title:'Day 1: I let AI rebuild my whole website',plat:['TikTok','Instagram'],status:'Idea',note:'Build-in-public hook — old site vs. new in 15 seconds.'},
- {title:"AI found 7 reviews I didn't know I had",plat:['TikTok','Instagram'],status:'Idea',note:'Real moment from the build — surprise + instant credibility.'},
- {title:'I built a command center to see if AI gets me customers',plat:['TikTok','Instagram'],status:'Idea',note:'Screen-record this dashboard — the scoreboard of the experiment.'},
- {title:'Can $0 + AI book a real driveway? (the experiment)',plat:['TikTok','Instagram','Facebook'],status:'Script',note:'The through-line CTA: book the $49 special and become the proof.'},
- {title:'Driveway transformation reel',plat:['Instagram','TikTok'],status:'Editing',note:'Real glasses footage cut to a 12-second satisfying reveal.'},
- {title:'Oil-stain rescue story',plat:['TikTok','Instagram'],status:'Idea',note:"Diego's real 1-hour oil-stain save, straight from the review."},
- {title:'Sudsy patio satisfying clean',plat:['Instagram','TikTok'],status:'Ready',note:'Real patio clip — oddly-satisfying foam reveal.'},
- {title:'Meet Jacob — founder intro',plat:['Facebook','Instagram'],status:'Idea',note:'The real human behind the AI. Authentic trust builder.'}
+ {title:"#1 — I'm 24. Can I use AI to generate leads for my business?",plat:['TikTok','Instagram'],status:'Filming',note:'Founder intro. Real office b-roll + identical-you (animated selfie) + captions. Drive to site.'},
+ {title:'#2 — Can AI help me make my first $10,000?',plat:['TikTok','Instagram','Facebook'],status:'Script',note:'Big money hook. Name services, no prices, drive to the site.'},
+ {title:'#3 — Here is the system I built for my business (with AI)',plat:['TikTok','Instagram'],status:'Idea',note:'Screen-record the Command Center + funnel.'},
+ {title:'Real office build b-roll (desk + Claude on screen)',plat:['TikTok','Instagram'],status:'Ready',note:'POV at the desk — graded brighter, scene unchanged.'},
+ {title:'Driveway / patio satisfying clean',plat:['Instagram','TikTok'],status:'Ready',note:'Real job footage — oddly-satisfying reveal.'}
 ];
 var PLATFORM_VISION=[
  {name:'TikTok',color:'#69C9D0',vibe:'The AI experiment, raw',desc:'"Day X of building a real business with AI." Fast hooks, the build-in-public story + satisfying cleans. This is where the reach and the experiment live.'},
