@@ -5,57 +5,88 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Varsco Command Center</title>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#07182E;--navy-2:#0E2A4D;--blue:#1E8BFF;--blue-bright:#43A6FF;--ink:#0A0F16;--paper:#0a1626;--card:#0f2138;--slate:#8aa0bb;--line:rgba(255,255,255,.09);--good:#3ddc84;--gold:#FFB323}
+:root{--navy:#07182E;--navy-2:#0E2A4D;--blue:#1E8BFF;--blue-bright:#43A6FF;--paper:#0a1626;--card:#0f2138;--card-2:#13294a;--slate:#8aa0bb;--line:rgba(255,255,255,.10);--good:#3ddc84;--gold:#FFB323;--amber:#ffb84d}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Manrope',sans-serif;background:var(--paper);color:#eaf1fb;-webkit-font-smoothing:antialiased;min-height:100vh}
-h1,h2,.disp{font-family:'Anton',sans-serif;font-weight:400;letter-spacing:.5px;text-transform:uppercase}
-.wrap{max-width:1160px;margin:0 auto;padding:24px}
+body{font-family:'Manrope',sans-serif;background:var(--paper);color:#eaf1fb;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.disp{font-family:'Anton',sans-serif;font-weight:400;letter-spacing:.5px;text-transform:uppercase}
+.eyebrow{font-weight:800;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-bright)}
 /* gate */
 #gate{position:fixed;inset:0;z-index:100;background:radial-gradient(120% 120% at 80% -10%,#15406f,var(--navy) 70%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;padding:24px}
-#gate h1{font-size:2rem;color:#fff}
-#gate input{padding:.9rem 1.1rem;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:#fff;font-size:1rem;width:min(320px,90vw);text-align:center}
-#gate button{padding:.9rem 1.6rem;border:none;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--blue-bright));color:#fff;font-weight:800;font-size:1rem;cursor:pointer}
-#gate .err{color:#ff8a8a;font-weight:700;font-size:.9rem;min-height:1.2em}
+#gate h1{font-size:2rem;color:#fff}#gate input{padding:.9rem 1.1rem;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:#fff;font-size:1rem;width:min(320px,90vw);text-align:center}
+#gate button{padding:.9rem 1.6rem;border:none;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--blue-bright));color:#fff;font-weight:800;font-size:1rem;cursor:pointer}#gate .err{color:#ff8a8a;font-weight:700;font-size:.9rem;min-height:1.2em}
 #app{display:none}
-/* header */
-.top{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:1.2rem;margin-bottom:1.6rem}
-.top h1{font-size:2rem;color:#fff}
-.top .sub{color:var(--slate);font-size:.9rem;margin-top:.2rem}
-.top .upd{color:var(--slate);font-size:.82rem}
-.eyebrow{font-weight:800;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-bright)}
-/* funnel */
-.funnel{display:flex;gap:.6rem;overflow-x:auto;padding:.4rem 0 1rem;margin-bottom:1.8rem}
-.node{flex:1 0 140px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:1rem;position:relative}
-.node .step{font-weight:800;font-size:.95rem;color:#fff}
-.node .nlabel{color:var(--slate);font-size:.74rem;margin:.15rem 0 .6rem;text-transform:uppercase;letter-spacing:.04em}
-.node .nstat{font-family:'Anton';font-size:1.5rem;color:var(--blue-bright)}
-.node:not(:last-child)::after{content:"›";position:absolute;right:-.55rem;top:50%;transform:translateY(-50%);color:var(--blue);font-size:1.4rem;font-weight:800;z-index:2}
-/* grid cards */
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:1.3rem}
-.card.span2{grid-column:span 2}
-.card h2{font-size:.78rem;letter-spacing:.04em;color:var(--slate);text-transform:uppercase;font-family:'Manrope';font-weight:800;margin-bottom:.8rem}
-.big{font-family:'Anton';font-size:2.4rem;color:#fff;line-height:1}
-.sub2{color:var(--slate);font-size:.85rem;margin-top:.3rem}
-.bar{display:flex;align-items:center;gap:.6rem;margin:.5rem 0}
-.bar .lab{width:84px;font-size:.85rem;font-weight:700;color:#cfe0f5}
-.bar .track{flex:1;height:10px;background:rgba(255,255,255,.08);border-radius:6px;overflow:hidden}
-.bar .fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--blue-bright));border-radius:6px}
-.bar .val{width:34px;text-align:right;font-weight:800;font-size:.85rem}
-.stars{color:var(--gold);letter-spacing:2px}
-.conv{display:flex;align-items:baseline;gap:.5rem}
-.pill{display:inline-block;background:rgba(61,220,132,.15);color:var(--good);font-weight:800;font-size:.78rem;padding:.2rem .55rem;border-radius:999px}
-.foot{color:var(--slate);font-size:.8rem;margin-top:1.6rem;border-top:1px solid var(--line);padding-top:1rem;line-height:1.6}
-.foot a{color:var(--blue-bright)}
-@media(max-width:860px){.grid{grid-template-columns:repeat(2,1fr)}.card.span2{grid-column:span 2}}
-@media(max-width:520px){.grid{grid-template-columns:1fr}.card.span2{grid-column:span 1}.top h1{font-size:1.6rem}}
+/* layout */
+.shell{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+.side{background:#081021;border-right:1px solid var(--line);padding:1.2rem .8rem;position:sticky;top:0;height:100vh;overflow-y:auto}
+.brand{font-family:'Anton';font-size:1.25rem;color:#fff;letter-spacing:.5px;padding:.2rem .6rem 1rem}
+.brand span{color:var(--blue)}
+.nav button{display:flex;align-items:center;gap:.6rem;width:100%;text-align:left;background:none;border:none;color:#b9cbe2;font-family:'Manrope';font-weight:700;font-size:.92rem;padding:.62rem .7rem;border-radius:10px;cursor:pointer;margin-bottom:.15rem}
+.nav button:hover{background:rgba(255,255,255,.05);color:#fff}
+.nav button.active{background:linear-gradient(135deg,rgba(30,139,255,.22),rgba(67,166,255,.12));color:#fff}
+.nav .num{width:20px;height:20px;border-radius:6px;background:rgba(255,255,255,.08);font-size:.7rem;font-weight:800;display:flex;align-items:center;justify-content:center;color:var(--slate);flex:none}
+.nav .active .num{background:var(--blue);color:#fff}
+.legend{margin-top:1.2rem;padding:.8rem .7rem;border-top:1px solid var(--line);font-size:.72rem;color:var(--slate);line-height:1.7}
+.legend b{color:#cfe0f5}
+.main{padding:1.8rem 2rem 3rem;max-width:1080px}
+/* badges */
+.via{display:inline-flex;align-items:center;gap:.4rem;font-weight:800;font-size:.72rem;letter-spacing:.03em;text-transform:uppercase;padding:.32rem .6rem;border-radius:8px}
+.via.connector{background:rgba(61,220,132,.16);color:var(--good)}
+.via.claude{background:rgba(67,166,255,.18);color:var(--blue-bright)}
+.via.analytics{background:rgba(255,184,77,.16);color:var(--amber)}
+.via.webagent{background:rgba(190,140,255,.18);color:#c8a6ff}
+.via.manual{background:rgba(255,255,255,.1);color:#cdd9ea}
+.via.you{background:rgba(255,179,35,.16);color:var(--gold)}
+/* panel */
+.phead{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:.4rem}
+.phead h1{font-size:2.1rem;color:#fff}
+.flink{color:var(--slate);font-size:.92rem;margin:.2rem 0 1.2rem;line-height:1.5}
+.flink b{color:#cfe0f5}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.2rem}
+.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.2rem}
+.box h3{font-size:.8rem;letter-spacing:.04em;color:var(--slate);text-transform:uppercase;font-family:'Manrope';font-weight:800;margin-bottom:.7rem}
+.task{display:flex;gap:.55rem;align-items:flex-start;font-size:.92rem;line-height:1.4;padding:.32rem 0;color:#dce7f5}
+.task .dot{width:14px;height:14px;border-radius:50%;flex:none;margin-top:.18rem}
+.task.cur .dot{background:var(--amber);box-shadow:0 0 0 3px rgba(255,184,77,.18)}
+.task.done .dot{background:var(--good)}
+.task.done{color:#9fb6cf}
+.statrow{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.2rem}
+.stat{background:var(--card-2);border:1px solid var(--line);border-radius:12px;padding:.8rem 1rem;min-width:120px}
+.stat .v{font-family:'Anton';font-size:1.7rem;color:#fff}
+.stat .l{font-size:.74rem;color:var(--slate);text-transform:uppercase;letter-spacing:.03em;font-weight:700;margin-top:.1rem}
+/* sub tabs (socials) */
+.subtabs{display:flex;gap:.5rem;margin:1.1rem 0 .4rem;flex-wrap:wrap}
+.subtabs button{background:var(--card);border:1px solid var(--line);color:#b9cbe2;font-weight:800;font-size:.85rem;padding:.5rem .9rem;border-radius:10px;cursor:pointer}
+.subtabs button.active{background:linear-gradient(135deg,var(--blue),var(--blue-bright));color:#fff;border-color:transparent}
+.handle{color:var(--blue-bright);font-weight:700;font-size:.9rem;text-decoration:none}
+/* overview funnel */
+.funnel{display:flex;gap:.5rem;overflow-x:auto;padding:.3rem 0 1rem}
+.node{flex:1 0 120px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:.85rem;position:relative;cursor:pointer}
+.node:hover{border-color:var(--blue)}
+.node .s{font-weight:800;font-size:.9rem;color:#fff}.node .nl{color:var(--slate);font-size:.7rem;margin:.1rem 0 .5rem;text-transform:uppercase}
+.node .nv{font-family:'Anton';font-size:1.3rem;color:var(--blue-bright)}
+.node:not(:last-child)::after{content:"›";position:absolute;right:-.5rem;top:50%;transform:translateY(-50%);color:var(--blue);font-size:1.2rem;font-weight:800;z-index:2}
+.ogrid{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin-top:1.2rem}
+.ocard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.1rem}
+.ocard.span2{grid-column:span 2}.ocard h3{font-size:.74rem;color:var(--slate);text-transform:uppercase;font-weight:800;margin-bottom:.6rem}
+.big{font-family:'Anton';font-size:2.2rem;color:#fff;line-height:1}.sub2{color:var(--slate);font-size:.82rem;margin-top:.3rem}
+.bar{display:flex;align-items:center;gap:.5rem;margin:.45rem 0}.bar .lab{width:78px;font-size:.82rem;font-weight:700;color:#cfe0f5}
+.bar .track{flex:1;height:9px;background:rgba(255,255,255,.08);border-radius:6px;overflow:hidden}.bar .fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--blue-bright))}
+.bar .val{width:30px;text-align:right;font-weight:800;font-size:.82rem}
+.stars{color:var(--gold);letter-spacing:1px}
+.updnote{color:var(--slate);font-size:.78rem;margin-top:1.6rem;border-top:1px solid var(--line);padding-top:.9rem;line-height:1.6}
+.mtoggle{display:none}
+@media(max-width:820px){
+  .shell{grid-template-columns:1fr}
+  .side{position:static;height:auto;display:none}.side.open{display:block}
+  .mtoggle{display:inline-flex;align-items:center;gap:.5rem;background:var(--card);border:1px solid var(--line);color:#fff;font-weight:800;padding:.6rem .9rem;border-radius:10px;margin-bottom:1rem;cursor:pointer}
+  .cols,.ogrid{grid-template-columns:1fr}.ocard.span2{grid-column:span 1}
+}
 </style>
 </head>
 <body>
 
-<!-- ===== PRIVACY GATE (deterrent-level; change PASSWORD below) ===== -->
 <div id="gate">
   <div class="eyebrow">Varsco · Private</div>
   <h1>Command Center</h1>
@@ -65,146 +96,133 @@ h1,h2,.disp{font-family:'Anton',sans-serif;font-weight:400;letter-spacing:.5px;t
 </div>
 
 <div id="app">
-  <div class="wrap">
-    <div class="top">
-      <div>
-        <div class="eyebrow">Varsco Pressure Washing</div>
-        <h1>Command Center</h1>
-        <div class="sub">Every avenue of the business, one screen.</div>
+  <div class="shell">
+    <aside class="side" id="side">
+      <div class="brand">VAR<span>SCO</span> · HQ</div>
+      <div class="nav" id="nav"></div>
+      <div class="legend">
+        <b>How each step links in:</b><br>
+        <span style="color:#43a6ff">●</span> <b>Claude Code</b> — built right here<br>
+        <span style="color:#3ddc84">●</span> <b>Connector</b> — live data link<br>
+        <span style="color:#ffb84d">●</span> <b>Analytics</b> — auto-tracked<br>
+        <span style="color:#c8a6ff">●</span> <b>Web agent</b> — browser bot<br>
+        <span style="color:#cdd9ea">●</span> <b>Manual</b> — done by hand
       </div>
-      <div class="upd">Last updated: <b id="updated">—</b></div>
-    </div>
-
-    <div class="eyebrow" style="margin-bottom:.7rem">The funnel · You → Bookings</div>
-    <div class="funnel" id="funnel"></div>
-
-    <div class="grid">
-      <div class="card span2">
-        <h2>Leads by channel</h2>
-        <div id="channels"></div>
-      </div>
-      <div class="card">
-        <h2>Visitors → Bookings</h2>
-        <div class="conv"><span class="big" id="convRate">0%</span></div>
-        <div class="sub2"><span id="convV">0</span> visitors · <span id="convB">0</span> booked</div>
-      </div>
-      <div class="card">
-        <h2>Revenue (this month)</h2>
-        <div class="big" id="rev">$0</div>
-        <div class="sub2"><span id="jobs">0</span> jobs</div>
-      </div>
-      <div class="card">
-        <h2>Reputation</h2>
-        <div class="big"><span id="rating">5.0</span> <span class="stars">★★★★★</span></div>
-        <div class="sub2"><span id="rcount">7</span> Google reviews</div>
-      </div>
-      <div class="card">
-        <h2>Jobs</h2>
-        <div class="big" id="sched">0</div>
-        <div class="sub2"><span id="repeat">0</span> repeat customers</div>
-      </div>
-      <div class="card span2">
-        <h2>This week's focus</h2>
-        <div class="sub2" id="focus" style="font-size:.95rem;color:#cfe0f5;line-height:1.5">—</div>
-      </div>
-    </div>
-
-    <div class="foot">
-      <b>How to update:</b> open your <span id="sheetlink">Google Sheet control panel</span> in Drive, change the numbers, save. This page reads them automatically.<br>
-      Website numbers (visitors, channels) can auto-fill from Google Analytics later; the rest you type in once a week.
-    </div>
+    </aside>
+    <main class="main">
+      <button class="mtoggle" id="mtoggle">☰ Menu</button>
+      <div id="panel"></div>
+      <div class="updnote">Numbers update from your <b>Google Sheet control panel</b> (edit the value column). Last updated: <b id="updated">—</b>.</div>
+    </main>
   </div>
 </div>
 
 <script>
-/* ============================================================
-   CONTROL PANEL CONFIG
-   1. PASSWORD: change this to your own secret word.
-   2. SHEET_CSV_URL: once your Google Sheet is "published to web" as CSV,
-      paste its link here and the dashboard updates itself from the Sheet.
-      Leave blank to use the starter numbers below.
-   ============================================================ */
 var PASSWORD = "Varscotx";
 var SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTdSv0M7_2AL4YzDAvjrLLUQIDzsQ8OUbPcTkfZwWylgSEIBawAvBKP8caUY7VlRmeAkPEq-c_3Kg4w/pub?output=csv";
 
-/* Starter data (mirrors your Google Sheet, key -> value) */
-var DATA = {
-  updated: "starter data",
-  higgsfield_videos: 2, ads_spend: 0, ads_reach: 0, social_views: 0, web_visitors: 0, bookings_requests: 0,
-  ig_leads: 0, tiktok_leads: 0, fb_leads: 0, google_leads: 0,
-  conv_visitors: 0, conv_bookings: 0,
-  revenue_month: 0, jobs_count: 0,
-  review_rating: "5.0", review_count: 7,
-  jobs_scheduled: 0, jobs_repeat: 0,
-  focus: "Get the site live, post 1 Higgsfield video, ask 3 customers for a Google review."
-};
+var DATA = {updated:"starter data",higgsfield_videos:2,ads_spend:0,ads_reach:0,social_views:0,web_visitors:0,bookings_requests:0,ig_leads:0,tiktok_leads:0,fb_leads:0,google_leads:0,conv_visitors:0,conv_bookings:0,revenue_month:0,jobs_count:0,review_rating:"5.0",review_count:7,jobs_scheduled:0,jobs_repeat:0,focus:"Get the site live, post a Higgsfield video, ask 3 customers for a review"};
+
+/* ===== THE COMMAND CENTER CONTENT ===== */
+var STAGES = [
+ {id:'overview',name:'Overview',num:'⌂'},
+ {id:'you',name:'You',num:1,via:'you',vialabel:'You',
+   link:'<b>Step 1.</b> You spot the work, set the direction, and approve everything before it ships. Nothing goes out without you.',
+   current:['Drop the deploy folder into Netlify to go live','(Optional) run the GitHub login to enable auto-publishing'],
+   done:['Approved the full site rebuild','Set the dashboard password','Provided real job videos & SAWS permit info']},
+ {id:'claude',name:'Claude',num:2,via:'claude',vialabel:'Claude Code',
+   link:'<b>Step 2.</b> I turn your ideas into the actual site, copy, tracking and this dashboard — built directly in Claude Code.',
+   current:['Get the site deployed live','Auto-fill website numbers from Google Analytics','Trim job videos into short loops (on request)'],
+   done:['Recovered your live site source','SEO + speed pass (270KB → 71KB)','Installed Google Analytics + click tracking','Added UTM tracking to every booking button','Featured your 7 real Google reviews','Added the job-video section','Built this Command Center']},
+ {id:'higgsfield',name:'Higgsfield',num:3,via:'manual',vialabel:'Manual / web app',
+   link:'<b>Step 3.</b> Where raw clips become scroll-stopping ad videos. No connector exists, so this is done by hand in the Higgsfield app — then exported for ads & socials.',
+   current:['Turn the 2 glasses clips into a polished ad','Make a 10-second driveway "before/after" reel'],
+   done:['Captured 2 real POV job videos (driveway + patio)'],
+   stats:[{l:'Videos made',k:'higgsfield_videos'}]},
+ {id:'metaads',name:'Meta Ads',num:4,via:'webagent',vialabel:'Web agent / manual',
+   link:'<b>Step 4.</b> Paid promotion that pushes your videos to San Antonio homeowners. Meta locks its data, so this runs through the Ads Manager dashboard (a web agent can help set it up).',
+   current:['Set up the Meta Ads account','Launch a small $5–10/day test on the $49 driveway special','Point the ad link to the site with tracking'],
+   done:[],
+   stats:[{l:'Spend',k:'ads_spend',pre:'$'},{l:'Reach',k:'ads_reach'}]},
+ {id:'socials',name:'Socials',num:5,via:'manual',vialabel:'Manual posting',
+   link:'<b>Step 5.</b> Your organic reach — Instagram, TikTok & Facebook. No connectors exist for these, so posting is manual. Each one carries a tracking link so the dashboard knows who came from where.',
+   stats:[{l:'Total views',k:'social_views'}],
+   sub:[
+     {id:'instagram',name:'Instagram',handle:'@varscopressurewashing',url:'https://www.instagram.com/varscopressurewashing/',via:'manual',vialabel:'Manual',
+       current:['Post the 2 job videos as Reels','Put your Instagram tracking link in the bio'],done:['Profile live (30+ followers)'],stats:[{l:'Leads',k:'ig_leads'}]},
+     {id:'tiktok',name:'TikTok',handle:'@varscopressurewashing',url:'https://www.tiktok.com/@varscopressurewashing',via:'manual',vialabel:'Manual',
+       current:['Post POV cleaning clips','Add your TikTok tracking link in bio'],done:['Profile created'],stats:[{l:'Leads',k:'tiktok_leads'}]},
+     {id:'facebook',name:'Facebook',handle:'Varsco Pressure Washing',url:'https://www.facebook.com/profile.php?id=61581823295729',via:'manual',vialabel:'Manual',
+       current:['Post before/after photos','Add your tracking link to the page button'],done:['Page live (38 likes)'],stats:[{l:'Leads',k:'fb_leads'}]}
+   ]},
+ {id:'webpage',name:'Webpage',num:6,via:'analytics',vialabel:'Analytics + Netlify',
+   link:'<b>Step 6.</b> varscoservices.com — where the click becomes a customer. Visitor numbers flow in automatically from Google Analytics; the page lives on Netlify.',
+   current:['Go LIVE (deploy the new version)','Confirm your real business hours','Add a half-done driveway photo for the before/after slider'],
+   done:['Rebuilt faster & mobile-friendly','Sticky mobile Book/Call bar','Local SEO + Google schema','Real reviews + job videos on page'],
+   stats:[{l:'Visitors',k:'web_visitors'},{l:'Conv. %',k:'__conv'}]},
+ {id:'bookings',name:'Bookings',num:7,via:'manual',vialabel:'Jobber link',
+   link:'<b>Step 7.</b> The finish line — Jobber. Every "Book Now" button sends customers to your Jobber request form, then quote → invoice → paid.',
+   current:['Check whether Jobber shows the tracking source on new requests','Set up post-job review-request texts'],
+   done:['Jobber booking form live','Booking link wired into all 6 site buttons'],
+   stats:[{l:'Requests',k:'bookings_requests'},{l:'Revenue',k:'revenue_month',pre:'$'},{l:'Rating',k:'review_rating',suf:' ★'}]}
+];
 
 /* ---- gate ---- */
-function unlock(){
-  var v=document.getElementById('pw').value;
-  if(v===PASSWORD){ sessionStorage.setItem('vc_ok','1'); document.getElementById('gate').style.display='none'; document.getElementById('app').style.display='block'; render(); }
-  else { document.getElementById('err').textContent='Wrong password.'; }
-}
+function unlock(){var v=document.getElementById('pw').value;if(v===PASSWORD){sessionStorage.setItem('vc_ok','1');show();}else{document.getElementById('err').textContent='Wrong password.';}}
+function show(){document.getElementById('gate').style.display='none';document.getElementById('app').style.display='block';buildNav();select('overview');loadSheet();}
 document.getElementById('go').addEventListener('click',unlock);
 document.getElementById('pw').addEventListener('keydown',function(e){if(e.key==='Enter')unlock();});
-if(sessionStorage.getItem('vc_ok')==='1'){document.getElementById('gate').style.display='none';document.getElementById('app').style.display='block';}
+if(sessionStorage.getItem('vc_ok')==='1')show();
 
-/* ---- data load (Sheet overrides starter) ---- */
-function parseCSV(text){
-  return text.trim().split(/\r?\n/).map(function(line){
-    var out=[],cur='',q=false;
-    for(var i=0;i<line.length;i++){var c=line[i];
-      if(q){ if(c=='"'){ if(line[i+1]=='"'){cur+='"';i++;} else q=false; } else cur+=c; }
-      else { if(c=='"')q=true; else if(c==','){out.push(cur);cur='';} else cur+=c; }
-    }
-    out.push(cur); return out;
-  });
+/* ---- sheet ---- */
+function parseCSV(t){return t.trim().split(/\r?\n/).map(function(line){var o=[],c='',q=false;for(var i=0;i<line.length;i++){var ch=line[i];if(q){if(ch=='"'){if(line[i+1]=='"'){c+='"';i++;}else q=false;}else c+=ch;}else{if(ch=='"')q=true;else if(ch==','){o.push(c);c='';}else c+=ch;}}o.push(c);return o;});}
+function loadSheet(){if(!SHEET_CSV_URL)return;fetch(SHEET_CSV_URL).then(function(r){return r.text();}).then(function(t){parseCSV(t).forEach(function(f){var k=(f[0]||'').trim(),v=(f[1]||'').trim();if(k&&k!=='key')DATA[k]=(v!==''&&!isNaN(v))?Number(v):v;});var u=document.getElementById('updated');if(u)u.textContent=DATA.updated;if(CUR)select(CUR,true);}).catch(function(){});}
+
+/* ---- nav ---- */
+var CUR='overview';
+function buildNav(){document.getElementById('nav').innerHTML=STAGES.map(function(s){return '<button data-id="'+s.id+'"><span class="num">'+s.num+'</span>'+s.name+'</button>';}).join('');
+  document.querySelectorAll('#nav button').forEach(function(b){b.addEventListener('click',function(){select(b.dataset.id);document.getElementById('side').classList.remove('open');});});}
+document.getElementById('mtoggle').addEventListener('click',function(){document.getElementById('side').classList.toggle('open');});
+
+function statHTML(arr){if(!arr||!arr.length)return '';return '<div class="statrow">'+arr.map(function(s){var val;if(s.k==='__conv'){val=(DATA.conv_visitors>0?Math.round(DATA.conv_bookings/DATA.conv_visitors*100):0)+'%';}else{val=(s.pre||'')+ (typeof DATA[s.k]==='number'?Number(DATA[s.k]).toLocaleString():DATA[s.k]) +(s.suf||'');}return '<div class="stat"><div class="v">'+val+'</div><div class="l">'+s.l+'</div></div>';}).join('')+'</div>';}
+function tasks(title,arr,cls){return '<div class="box"><h3>'+title+'</h3>'+((arr&&arr.length)?arr.map(function(t){return '<div class="task '+cls+'"><span class="dot"></span><span>'+t+'</span></div>';}).join(''):'<div class="task '+cls+'" style="color:#7c93ad"><span>Nothing yet.</span></div>')+'</div>';}
+function viaBadge(s){return '<span class="via '+s.via+'">'+s.vialabel+'</span>';}
+
+function panelFor(s){
+  var h='<div class="phead"><h1>'+s.name+'</h1>'+viaBadge(s)+'</div>';
+  h+='<div class="flink">'+s.link+'</div>';
+  if(s.stats)h+=statHTML(s.stats);
+  if(s.sub){
+    h+='<div class="subtabs" id="subtabs">'+s.sub.map(function(x,i){return '<button data-i="'+i+'" class="'+(i===0?'active':'')+'">'+x.name+'</button>';}).join('')+'</div><div id="subpanel"></div>';
+  } else {
+    h+='<div class="cols">'+tasks('▶ Current tasks',s.current,'cur')+tasks('✓ Completed',s.done,'done')+'</div>';
+  }
+  return h;
 }
-function loadThenRender(){
-  if(!SHEET_CSV_URL){ if(sessionStorage.getItem('vc_ok')==='1') render(); return; }
-  fetch(SHEET_CSV_URL).then(function(r){return r.text();}).then(function(t){
-    parseCSV(t).forEach(function(f){
-      var k=(f[0]||'').trim(), val=(f[1]||'').trim();
-      if(k && k!=='key') DATA[k]=(val!=='' && !isNaN(val))?Number(val):val;
-    });
-    if(sessionStorage.getItem('vc_ok')==='1') render();
-  }).catch(function(){ if(sessionStorage.getItem('vc_ok')==='1') render(); });
+function renderSub(s,i){var x=s.sub[i];var h='<div style="margin:.3rem 0 .2rem"><a class="handle" href="'+x.url+'" target="_blank" rel="noopener">'+x.handle+' ↗</a> &nbsp; <span class="via '+x.via+'">'+x.vialabel+'</span></div>';h+=statHTML(x.stats);h+='<div class="cols">'+tasks('▶ Current tasks',x.current,'cur')+tasks('✓ Completed',x.done,'done')+'</div>';document.getElementById('subpanel').innerHTML=h;}
+
+function overview(){
+  var f=[['You','Approve','★'],['Claude','Build','live'],['Higgsfield','Videos',DATA.higgsfield_videos],['Meta Ads','Spend','$'+DATA.ads_spend],['Socials','Views',DATA.social_views],['Webpage','Visitors',DATA.web_visitors],['Bookings','Requests',DATA.bookings_requests]];
+  var h='<div class="phead"><h1>Overview</h1><span class="via claude">Live</span></div><div class="flink">Your whole business, one screen. Click any step in the sidebar for its tasks &amp; status.</div>';
+  h+='<div class="eyebrow" style="margin:.4rem 0 .6rem">The funnel · You → Bookings</div><div class="funnel">'+f.map(function(n){return '<div class="node"><div class="s">'+n[0]+'</div><div class="nl">'+n[1]+'</div><div class="nv">'+n[2]+'</div></div>';}).join('')+'</div>';
+  var max=Math.max(1,DATA.ig_leads,DATA.tiktok_leads,DATA.fb_leads,DATA.google_leads);
+  var ch=[['Instagram',DATA.ig_leads],['TikTok',DATA.tiktok_leads],['Facebook',DATA.fb_leads],['Google',DATA.google_leads]];
+  var rate=DATA.conv_visitors>0?Math.round(DATA.conv_bookings/DATA.conv_visitors*100):0;
+  h+='<div class="ogrid"><div class="ocard span2"><h3>Leads by channel</h3>'+ch.map(function(c){return '<div class="bar"><span class="lab">'+c[0]+'</span><span class="track"><span class="fill" style="width:'+(c[1]/max*100)+'%"></span></span><span class="val">'+c[1]+'</span></div>';}).join('')+'</div>'+
+   '<div class="ocard"><h3>Visitors → Bookings</h3><div class="big">'+rate+'%</div><div class="sub2">'+DATA.conv_visitors+' visitors · '+DATA.conv_bookings+' booked</div></div>'+
+   '<div class="ocard"><h3>Revenue (month)</h3><div class="big">$'+Number(DATA.revenue_month).toLocaleString()+'</div><div class="sub2">'+DATA.jobs_count+' jobs</div></div>'+
+   '<div class="ocard"><h3>Reputation</h3><div class="big">'+DATA.review_rating+' <span class="stars">★★★★★</span></div><div class="sub2">'+DATA.review_count+' Google reviews</div></div>'+
+   '<div class="ocard"><h3>Jobs</h3><div class="big">'+DATA.jobs_scheduled+'</div><div class="sub2">'+DATA.jobs_repeat+' repeat customers</div></div>'+
+   '<div class="ocard span2"><h3>This week\'s focus</h3><div class="sub2" style="font-size:.95rem;color:#cfe0f5;line-height:1.5">'+DATA.focus+'</div></div></div>';
+  return h;
 }
 
-/* ---- render ---- */
-function render(){
-  var d=DATA;
-  document.getElementById('updated').textContent=d.updated||'—';
-  document.getElementById('focus').textContent=d.focus||'—';
-  var funnel=[
-    {step:'You',label:'Ideas & jobs',stat:'★'},
-    {step:'Claude',label:'Build & copy',stat:'live'},
-    {step:'Higgsfield',label:'Videos made',stat:d.higgsfield_videos},
-    {step:'Meta Ads',label:'Spend · reach',stat:'$'+d.ads_spend},
-    {step:'Socials',label:'Views',stat:d.social_views},
-    {step:'Webpage',label:'Visitors',stat:d.web_visitors},
-    {step:'Bookings',label:'Requests',stat:d.bookings_requests}
-  ];
-  document.getElementById('funnel').innerHTML=funnel.map(function(n){
-    return '<div class="node"><div class="step">'+n.step+'</div><div class="nlabel">'+n.label+'</div><div class="nstat">'+n.stat+'</div></div>';
-  }).join('');
-  var ch=[['Instagram',d.ig_leads],['TikTok',d.tiktok_leads],['Facebook',d.fb_leads],['Google',d.google_leads]];
-  var max=Math.max(1,d.ig_leads,d.tiktok_leads,d.fb_leads,d.google_leads);
-  document.getElementById('channels').innerHTML=ch.map(function(c){
-    return '<div class="bar"><span class="lab">'+c[0]+'</span><span class="track"><span class="fill" style="width:'+(c[1]/max*100)+'%"></span></span><span class="val">'+c[1]+'</span></div>';
-  }).join('');
-  var rate=d.conv_visitors>0?Math.round(d.conv_bookings/d.conv_visitors*100):0;
-  document.getElementById('convRate').textContent=rate+'%';
-  document.getElementById('convV').textContent=d.conv_visitors;
-  document.getElementById('convB').textContent=d.conv_bookings;
-  document.getElementById('rev').textContent='$'+Number(d.revenue_month).toLocaleString();
-  document.getElementById('jobs').textContent=d.jobs_count;
-  document.getElementById('rating').textContent=d.review_rating;
-  document.getElementById('rcount').textContent=d.review_count;
-  document.getElementById('sched').textContent=d.jobs_scheduled;
-  document.getElementById('repeat').textContent=d.jobs_repeat;
+function select(id,keep){CUR=id;
+  document.querySelectorAll('#nav button').forEach(function(b){b.classList.toggle('active',b.dataset.id===id);});
+  var s=STAGES.filter(function(x){return x.id===id;})[0];
+  document.getElementById('panel').innerHTML = id==='overview'?overview():panelFor(s);
+  if(s&&s.sub){renderSub(s,0);document.querySelectorAll('#subtabs button').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#subtabs button').forEach(function(x){x.classList.remove('active');});b.classList.add('active');renderSub(s,+b.dataset.i);});});}
 }
-loadThenRender();
 </script>
 </body>
 </html>
