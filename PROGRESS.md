@@ -8,11 +8,22 @@ _Last updated: 2026-06-02 (evening). Read this with CLAUDE.md to resume in a new
 - **Content**: 3 founder videos scripted; a **CapCut web-agent** was mid-run assembling Video #1.
 - Next: nail the website's cinematic *direction* (see warning below), produce the videos, and **deploy.**
 
-## ⚠️ READ THIS FIRST — open creative question on the website
-Jacob's reference for the look is the **@weblift_agency** Instagram reel: premium, *scroll-based motion, AI-generated visuals, cinematic detail.* He wants that vibe. But two specific attempts were **rejected**, so DON'T repeat them blindly:
-- ❌ **Glossy AI avatar** of him → "looks like an AI version of me." He wants **realism** (real footage, or identical-you made by *animating a real selfie*, not text-to-image).
-- ❌ **Horizontal scroll** service selector ("scroll through, not down") → "No, not what I am looking for."
-**Action for next session:** before another big website build, get a *clearer, specific* reference from Jacob (exact section/interaction he likes). The cinematic *assets* are good; the *interaction model* is unsettled. To revert the horizontal service rail back to the vertical grid, it lived at commit `6e52d6a` (horizontal = `32c02aa`).
+## ⭐ READ THIS FIRST — the website vision (NOW CLARIFIED)
+References Jacob gave: **@weblift_agency** reel (scroll-based motion, cinematic, AI visuals) + **@yasoppustudio** reel (a stunning site built entirely with Claude prompts). NOTE: WebFetch can't watch IG videos and the browser tool is blocked for IG — build from this spec, not the reels.
+
+**THE BUILD HE WANTS — a "pinned house tour" (VERTICAL scroll, NOT horizontal):**
+- A house visual **stays pinned/sticky on screen** while the user scrolls **down**.
+- As they scroll, **each service highlights / zooms in sequence**: roof → driveway → house wash → solar → fence → gutters. Each step shows the service name + one-liner + a **"Book this"** CTA (Jobber, `utm_medium=svc_<service>`).
+- Guided, cinematic, scroll-driven — the @weblift "scroll-based motion." Build with `position:sticky` + scroll-progress/IntersectionObserver step states, transform/opacity only, reduced-motion aware, with a clean mobile fallback (e.g., stacked cards).
+- Needs **one clear "whole house" visual** showing roof, driveway, fence, solar panels, and gutters so parts can be highlighted (generate it, or a layered illustration). This likely **replaces the current service selector.**
+
+**Imagery direction (CONFIRMED): MIX** — AI cinematic for hero/backgrounds; **real photos for proof** (before/afters, reviews) as Jacob gets them. The AI service images already in `media/` are swap-ready.
+
+**Rejected — do NOT repeat:**
+- ❌ Glossy text-to-image AI **avatar** of Jacob ("looks like an AI version of me") → use realism: real footage, or identical-you by ANIMATING a real selfie (`kling3_0` image-to-video).
+- ❌ **Horizontal** scrolling ("not what I'm looking for"). Vertical scroll WITH cinematic motion only.
+
+To revert the current horizontal service rail to the vertical grid first: it was at commit `6e52d6a` (horizontal = `32c02aa`).
 
 ## 🚧 THE BLOCKER — getting the site live
 Nothing is on varscoservices.com yet. Two ways:
