@@ -103,6 +103,12 @@ h1,h2,h3,.disp{font-family:'Anton',sans-serif;font-weight:400;letter-spacing:.5p
 .vtop b{color:#fff}.vvibe{color:var(--slate);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;margin-left:auto}
 .vdesc{color:#9fb6cf;font-size:.85rem;line-height:1.5}
 @media(max-width:820px){.ideas,.visions{grid-template-columns:1fr}}
+/* live status board (overview) */
+.statusboard{display:flex;flex-direction:column;gap:.5rem;margin-bottom:.6rem}
+.srow{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.65rem .85rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.srow .dot{width:11px;height:11px;border-radius:50%;flex:none;background:var(--amber);box-shadow:0 0 0 3px rgba(255,184,77,.18)}
+.srow .schip{font-size:.64rem;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:var(--slate);background:rgba(255,255,255,.06);padding:.18rem .45rem;border-radius:5px;white-space:nowrap}
+.srow .sbody{flex:1;font-size:.9rem;color:#dce7f5;min-width:180px}
 .mtoggle{display:none}
 @media(max-width:820px){
   .shell{grid-template-columns:1fr}
@@ -276,6 +282,10 @@ function overview(){
   var f=[['You','Approve','★'],['Claude','Build','live'],['Higgsfield','Videos',DATA.higgsfield_videos],['Meta Ads','Spend','$'+DATA.ads_spend],['Socials','Views',DATA.social_views],['Webpage','Visitors',DATA.web_visitors],['Bookings','Requests',DATA.bookings_requests]];
   var h='<div class="phead"><h1>Overview</h1><span class="via claude">Live</span></div><div class="flink">Your whole business, one screen. Click any step in the sidebar for its tasks &amp; status.</div>';
   h+='<div class="eyebrow" style="margin:.4rem 0 .6rem">The funnel · You → Bookings</div><div class="funnel">'+f.map(function(n){return '<div class="node"><div class="s">'+n[0]+'</div><div class="nl">'+n[1]+'</div><div class="nv">'+n[2]+'</div></div>';}).join('')+'</div>';
+  var active=[];
+  STAGES.forEach(function(s){(s.current||[]).forEach(function(o){active.push({st:s.name,dv:s.via,o:o});});(s.sub||[]).forEach(function(x){(x.current||[]).forEach(function(o){active.push({st:s.name+' · '+x.name,dv:x.via,o:o});});});});
+  h+='<div class="eyebrow" style="margin:1.3rem 0 .6rem">Status · live activity ('+active.length+' in progress)</div>';
+  h+='<div class="statusboard">'+active.map(function(a){var v=a.o.via||a.dv;var body=a.o.url?'<a class="tlink" href="'+a.o.url+'" target="_blank" rel="noopener">'+a.o.t+' &#8599;</a>':'<span>'+a.o.t+'</span>';return '<div class="srow"><span class="dot"></span><span class="schip">'+a.st+'</span><span class="sbody">'+body+'</span><span class="tvia '+v+'">'+(VIA_LABEL[v]||v)+'</span></div>';}).join('')+'</div>';
   var max=Math.max(1,DATA.ig_leads,DATA.tiktok_leads,DATA.fb_leads,DATA.google_leads);
   var ch=[['Instagram',DATA.ig_leads],['TikTok',DATA.tiktok_leads],['Facebook',DATA.fb_leads],['Google',DATA.google_leads]];
   var rate=DATA.conv_visitors>0?Math.round(DATA.conv_bookings/DATA.conv_visitors*100):0;
