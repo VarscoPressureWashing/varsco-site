@@ -1,2 +1,12 @@
 .DS_Store
 *.log
+
+# Local-only operating docs (keep secrets out of GitHub/Netlify)
+CLAUDE.md
+PROGRESS.md
+
+# Local scratch / duplicates / backups (not part of the deployed site)
+index.house-tour.bak.html
+varsco-site-deploy/
+Varsco Content/
+.claude/
