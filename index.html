@@ -208,6 +208,17 @@
 })();
 </script>
 
+<!-- ===== Meta Pixel (free). Paste your Pixel/Dataset ID below (numbers only). Stays dormant until a real ID is set. ===== -->
+<script>
+(function(){
+  var META_PIXEL_ID = "PASTE_META_PIXEL_ID"; // <-- REPLACE with your Meta Pixel (Dataset) ID, e.g. "123456789012345"
+  if(!/^\d{6,}$/.test(META_PIXEL_ID)) return; // dormant until a real numeric ID is set
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', META_PIXEL_ID);
+  fbq('track', 'PageView');
+})();
+</script>
+
 <!-- ============================================================
   SWAP-INS (replace before going live):
   1. BOOK NOW links: search "https://clienthub.getjobber.com/hubs/aa3d7c67-7e11-4541-9394-1f22f15141d6/public/requests/4811540/new" -> paste your Jobber online-booking URL
@@ -911,8 +922,8 @@ document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
 (function(){
   if(typeof gtag!=='function')return;
   function on(sel,fn){document.querySelectorAll(sel).forEach(function(el){el.addEventListener('click',fn);});}
-  on('a[href*="clienthub.getjobber.com"]',function(){var m=(this.href.match(/utm_medium=([a-z_]+)/)||[])[1]||'unknown';gtag('event','booking_click',{button_location:m});});
-  on('a[href^="tel:"]',function(){gtag('event','call_click',{});});
+  on('a[href*="clienthub.getjobber.com"]',function(){var m=(this.href.match(/utm_medium=([a-z_]+)/)||[])[1]||'unknown';gtag('event','booking_click',{button_location:m});if(typeof fbq==='function')fbq('track','Lead',{content_name:m});});
+  on('a[href^="tel:"]',function(){gtag('event','call_click',{});if(typeof fbq==='function')fbq('track','Contact');});
   on('a[href*="g.page/r/"]',function(){gtag('event','review_click',{});});
 })();
 </script>
