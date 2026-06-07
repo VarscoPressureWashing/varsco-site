@@ -3,6 +3,14 @@
   publish = "."
   command = ""
 
+# Same-origin proxy for the Command Center's Google Sheet data
+# (avoids the browser hitting Google directly → no CORS/redirect/extension blocks)
+[[redirects]]
+  from = "/sheet.csv"
+  to = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTdSv0M7_2AL4YzDAvjrLLUQIDzsQ8OUbPcTkfZwWylgSEIBawAvBKP8caUY7VlRmeAkPEq-c_3Kg4w/pub?output=csv"
+  status = 200
+  force = true
+
 [[headers]]
   for = "/media/orbit-frames/*"
   [headers.values]
