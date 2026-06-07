@@ -239,7 +239,7 @@ function unlock(){var v=document.getElementById('pw').value;if(v===PASSWORD){ses
 function show(){document.getElementById('gate').style.display='none';document.getElementById('app').style.display='block';buildNav();select('overview');loadSheet();}
 document.getElementById('go').addEventListener('click',unlock);
 document.getElementById('pw').addEventListener('keydown',function(e){if(e.key==='Enter')unlock();});
-if(sessionStorage.getItem('vc_ok')==='1')show();
+/* NOTE: auto-unlock for returning visitors runs at the END of this script (after all vars/functions are defined) — see bottom. */
 
 /* ---- sheet ---- */
 function parseCSV(t){return t.trim().split(/\r?\n/).map(function(line){var o=[],c='',q=false;for(var i=0;i<line.length;i++){var ch=line[i];if(q){if(ch=='"'){if(line[i+1]=='"'){c+='"';i++;}else q=false;}else c+=ch;}else{if(ch=='"')q=true;else if(ch==','){o.push(c);c='';}else c+=ch;}}o.push(c);return o;});}
@@ -305,6 +305,9 @@ function select(id,keep){CUR=id;
   document.getElementById('panel').innerHTML = id==='overview'?overview():panelFor(s);
   if(s&&s.sub){renderSub(s,0);document.querySelectorAll('#subtabs button').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#subtabs button').forEach(function(x){x.classList.remove('active');});b.classList.add('active');renderSub(s,+b.dataset.i);});});}
 }
+
+/* Auto-unlock returning visitors — MUST run last, after VIA_LABEL/overview/etc. are defined */
+if(sessionStorage.getItem('vc_ok')==='1')show();
 </script>
 </body>
 </html>
