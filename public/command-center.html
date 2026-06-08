@@ -221,18 +221,18 @@ var STAGES = [
 /* ===== CONTENT PIPELINE ===== */
 var STATUS_COLORS={'Idea':'#8aa0bb','Script':'#43a6ff','Filming':'#c8a6ff','Generating':'#c8a6ff','Editing':'#ffb84d','Ready':'#3ddc84','Posted':'#3ddc84'};
 var CONTENT_IDEAS=[
- {title:"#1 — I'm 24. Can I use AI to generate leads for my business?",plat:['TikTok','Instagram'],status:'Filming',note:'Founder intro. Real office b-roll + identical-you (animated selfie) + captions. Drive to site.'},
- {title:'#2 — Can AI help me make my first $10,000?',plat:['TikTok','Instagram','Facebook'],status:'Script',note:'Big money hook. Name services, no prices, drive to the site.'},
- {title:'#3 — Here is the system I built for my business (with AI)',plat:['TikTok','Instagram'],status:'Idea',note:'Screen-record the Command Center + funnel.'},
- {title:'Real office build b-roll (desk + Claude on screen)',plat:['TikTok','Instagram'],status:'Ready',note:'POV at the desk — graded brighter, scene unchanged.'},
- {title:'Driveway / patio satisfying clean',plat:['Instagram','TikTok'],status:'Ready',note:'Real job footage — oddly-satisfying reveal.'}
+ {id:'i1',title:"#1 — I'm 24. Can I use AI to generate leads for my business?",plat:['TikTok','Instagram'],status:'Filming',note:'Founder intro. Real office b-roll + identical-you (animated selfie) + captions. Drive to site.'},
+ {id:'i2',title:'#2 — Can AI help me make my first $10,000?',plat:['TikTok','Instagram','Facebook'],status:'Script',note:'Big money hook. Name services, no prices, drive to the site.'},
+ {id:'i3',title:'#3 — Here is the system I built for my business (with AI)',plat:['TikTok','Instagram'],status:'Idea',note:'Screen-record the Command Center + funnel.'},
+ {id:'i4',title:'Real office build b-roll (desk + Claude on screen)',plat:['TikTok','Instagram'],status:'Ready',note:'POV at the desk — graded brighter, scene unchanged.'},
+ {id:'i5',title:'Driveway / patio satisfying clean',plat:['Instagram','TikTok'],status:'Ready',note:'Real job footage — oddly-satisfying reveal.'}
 ];
 var PLATFORM_VISION=[
  {name:'TikTok',color:'#69C9D0',vibe:'Comedy / chaos — reach',desc:'"I let AI run my pressure washing business and it’s chaos." Funny, fast, self-aware. 1-sec hooks, trends, a running series. Volume + reach lives here. Follow trigger: "follow to see if this actually works."'},
  {name:'Instagram',color:'#E1306C',vibe:'The journey, polished',desc:'The serialized build story — documentary feel, clean covers, milestone carousels. People subscribe to the arc. Tracking link in bio.'},
  {name:'Facebook',color:'#1877F2',vibe:'Journey + local roots',desc:'The underdog founder story (FB loves this) with San Antonio front and center. Shareable in local groups; quietly converts to local bookings.'}
 ];
-var CONTENT=[]; var CONTENT_API='/.netlify/functions/';
+var CONTENT=[]; var CONTENT_KEY='vc_content_v1';
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 function hexa(hex,a){var n=parseInt(hex.slice(1),16);return 'rgba('+((n>>16)&255)+','+((n>>8)&255)+','+(n&255)+','+a+')';}
 function ideaCard(it){
@@ -257,13 +257,18 @@ function renderIdeas(){
   if(pass.length)h+='<div class="eyebrow" style="margin:1.4rem 0 .6rem;color:#8aa0bb">Passed ('+pass.length+')</div><div class="ideas">'+pass.map(ideaCard).join('')+'</div>';
   box.innerHTML=h;
 }
+function saveContent(){try{localStorage.setItem(CONTENT_KEY,JSON.stringify(CONTENT));}catch(e){}}
 function setStatus(id,status){
   CONTENT=CONTENT.map(function(i){return i.id===id?Object.assign({},i,{status:status}):i;});
-  renderIdeas();
-  fetch(CONTENT_API+'content-set',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({id:id,status:status})}).then(function(r){return r.json();}).then(function(list){if(Array.isArray(list)){CONTENT=list;renderIdeas();}}).catch(function(){});
+  saveContent();renderIdeas();
 }
 function loadContent(){
-  fetch(CONTENT_API+'content-get').then(function(r){return r.json();}).then(function(list){if(Array.isArray(list))CONTENT=list;renderIdeas();}).catch(function(){var b=document.getElementById('ideabox');if(b)b.innerHTML='<div class="inote" style="opacity:.6">Couldn\'t load ideas.</div>';});
+  // Persistence is now local to this browser (localStorage) — no backend, so deploys stay light.
+  var saved=[];try{var s=JSON.parse(localStorage.getItem(CONTENT_KEY));if(Array.isArray(s))saved=s;}catch(e){}
+  var byId={};saved.forEach(function(i){byId[i.id]=i;});
+  // Seed/merge from CONTENT_IDEAS: new ideas appear as pending; existing approve/pass decisions are kept.
+  CONTENT_IDEAS.forEach(function(it,n){var id=it.id||('i'+(n+1));if(!byId[id]){var card={id:id,title:it.title,plat:it.plat,note:it.note,status:'pending'};saved.push(card);byId[id]=card;}});
+  CONTENT=saved;saveContent();renderIdeas();
 }
 function renderContent(){
   var h='<div class="phead"><h1>Content Pipeline</h1><span class="via claude">Interactive</span></div>';

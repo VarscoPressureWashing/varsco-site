@@ -1,4 +1,5 @@
-# Static site in /public; Netlify installs function deps (package.json) then publishes /public.
+# Static site in /public. No package.json / npm install (that broke deploys) —
+# the only function (sheet.js) has zero deps and bundles natively. Just publish /public.
 [build]
   publish = "public"
   command = ""
