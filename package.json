@@ -1,0 +1,9 @@
+{
+  "name": "varsco-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Varsco Pressure Washing site + Command Center (static + Netlify functions)",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}

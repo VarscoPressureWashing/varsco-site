@@ -1,5 +1,6 @@
 .DS_Store
 *.log
+node_modules/
 
 # Local-only operating docs (keep secrets out of GitHub/Netlify)
 CLAUDE.md

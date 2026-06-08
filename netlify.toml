@@ -1,6 +1,6 @@
-# Static site — no build step. Netlify publishes the repo root.
+# Static site in /public; Netlify installs function deps (package.json) then publishes /public.
 [build]
-  publish = "."
+  publish = "public"
   command = ""
 
 [build.environment]
