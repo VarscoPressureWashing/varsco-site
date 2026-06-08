@@ -11,7 +11,7 @@ export default async (req) => {
     const store = getStore("varsco-content");
     let body = {};
     try { body = await req.json(); } catch (e) {}
-    let ideas = (await store.get("ideas", { type: "json" })) || [];
+    let ideas = (await store.get("ideas", { type: "json", consistency: "strong" })) || [];
 
     if (body.action === "seed" && Array.isArray(body.ideas)) {
       ideas = body.ideas;

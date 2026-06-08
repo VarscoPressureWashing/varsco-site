@@ -5,7 +5,7 @@ import { getStore } from "@netlify/blobs";
 export default async () => {
   try {
     const store = getStore("varsco-content");
-    const ideas = (await store.get("ideas", { type: "json" })) || [];
+    const ideas = (await store.get("ideas", { type: "json", consistency: "strong" })) || [];
     return new Response(JSON.stringify(ideas), {
       headers: { "content-type": "application/json", "cache-control": "no-store", "access-control-allow-origin": "*" }
     });
