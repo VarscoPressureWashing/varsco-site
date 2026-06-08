@@ -116,22 +116,9 @@ h1,h2,h3,.disp{font-family:'Anton',sans-serif;font-weight:400;letter-spacing:.5p
   .mtoggle{display:inline-flex;align-items:center;gap:.5rem;background:var(--card);border:1px solid var(--line);color:#fff;font-weight:800;padding:.6rem .9rem;border-radius:10px;margin-bottom:1rem;cursor:pointer}
   .cols,.ogrid{grid-template-columns:1fr}.ocard.span2{grid-column:span 1}
 }
-/* interactive content idea cards */
-.ipillar{font-size:.66rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#7fa6cf;background:rgba(127,166,207,.14);padding:.22rem .5rem;border-radius:6px;white-space:nowrap}
-.iact{display:flex;gap:.5rem;margin-top:.8rem;align-items:center;flex-wrap:wrap}
-.ibtn{border:none;border-radius:9px;padding:.5rem .9rem;font-weight:800;font-size:.82rem;cursor:pointer;transition:transform .12s ease,filter .15s ease}
-.ibtn:hover{transform:translateY(-1px);filter:brightness(1.12)}
-.ibtn.yes{background:rgba(61,220,132,.16);color:#3ddc84;border:1px solid rgba(61,220,132,.4)}
-.ibtn.no{background:rgba(255,138,156,.12);color:#ff8a9c;border:1px solid rgba(255,138,156,.35)}
-.ibtn.ghost{background:rgba(255,255,255,.06);color:#9fb2c8;border:1px solid rgba(255,255,255,.14)}
-.ibadge{font-weight:800;font-size:.78rem;padding:.38rem .65rem;border-radius:8px}
-.ibadge.ok{background:rgba(61,220,132,.16);color:#3ddc84}
-.ibadge.no{background:rgba(255,138,156,.14);color:#ff8a9c}
-.idea.ist-passed{opacity:.5}
-.idea.ist-approved{border-color:rgba(61,220,132,.35)}
 </style>
 </head>
-<body><!--dt1780880899-->
+<body>
 
 <div id="gate">
   <div class="eyebrow">Varsco · Private</div>
@@ -228,53 +215,23 @@ var CONTENT_IDEAS=[
  {title:'Driveway / patio satisfying clean',plat:['Instagram','TikTok'],status:'Ready',note:'Real job footage — oddly-satisfying reveal.'}
 ];
 var PLATFORM_VISION=[
- {name:'TikTok',color:'#69C9D0',vibe:'Comedy / chaos — reach',desc:'"I let AI run my pressure washing business and it’s chaos." Funny, fast, self-aware. 1-sec hooks, trends, a running series. Volume + reach lives here. Follow trigger: "follow to see if this actually works."'},
- {name:'Instagram',color:'#E1306C',vibe:'The journey, polished',desc:'The serialized build story — documentary feel, clean covers, milestone carousels. People subscribe to the arc. Tracking link in bio.'},
- {name:'Facebook',color:'#1877F2',vibe:'Journey + local roots',desc:'The underdog founder story (FB loves this) with San Antonio front and center. Shareable in local groups; quietly converts to local bookings.'}
+ {name:'TikTok',color:'#69C9D0',vibe:'The AI experiment, raw',desc:'"Day X of building a real business with AI." Fast hooks, the build-in-public story + satisfying cleans. This is where the reach and the experiment live.'},
+ {name:'Instagram',color:'#E1306C',vibe:'The founder journey, polished',desc:'Building a business with AI, made beautiful — setup wins, before/afters, the brand taking shape. Aspirational + credible. Tracking link in bio.'},
+ {name:'Facebook',color:'#1877F2',vibe:'Local & ready to book',desc:'San Antonio homeowners. Less AI-talk, more "book your driveway" — real reviews, neighborhood proof. Where local leads convert.'}
 ];
-var CONTENT=[]; var CONTENT_API='/.netlify/functions/';
-function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 function hexa(hex,a){var n=parseInt(hex.slice(1),16);return 'rgba('+((n>>16)&255)+','+((n>>8)&255)+','+(n&255)+','+a+')';}
-function ideaCard(it){
-  var s=it.status||'pending';
-  var plats=it.platform?[it.platform]:(it.plat||[]);
-  var chips=plats.map(function(p){return '<span>'+esc(p)+'</span>';}).join('');
-  var body=it.hook||it.note||'';
-  var act;
-  if(s==='approved'){act='<div class="iact"><span class="ibadge ok">✓ Approved</span><button class="ibtn ghost" onclick="setStatus(\''+it.id+'\',\'passed\')">Pass</button></div>';}
-  else if(s==='passed'){act='<div class="iact"><span class="ibadge no">Passed</span><button class="ibtn ghost" onclick="setStatus(\''+it.id+'\',\'pending\')">Restore</button></div>';}
-  else{act='<div class="iact"><button class="ibtn yes" onclick="setStatus(\''+it.id+'\',\'approved\')">✓ Approve</button><button class="ibtn no" onclick="setStatus(\''+it.id+'\',\'passed\')">✕ Pass</button></div>';}
-  return '<div class="idea ist-'+s+'"><div class="ihead"><span class="ititle">'+esc(it.title)+'</span>'+(it.pillar?'<span class="ipillar">'+esc(it.pillar)+'</span>':'')+'</div>'+(chips?'<div class="iplat">'+chips+'</div>':'')+(body?'<div class="inote">'+esc(body)+'</div>':'')+act+'</div>';
-}
-function renderIdeas(){
-  var box=document.getElementById('ideabox'); if(!box)return;
-  if(!CONTENT.length){box.innerHTML='<div class="inote" style="opacity:.6">No ideas yet — Claude will pitch the first batch here.</div>';return;}
-  var pend=CONTENT.filter(function(i){return (i.status||'pending')==='pending';});
-  var appr=CONTENT.filter(function(i){return i.status==='approved';});
-  var pass=CONTENT.filter(function(i){return i.status==='passed';});
-  var h='<div class="eyebrow" style="margin:.2rem 0 .6rem">Awaiting your call ('+pend.length+')</div><div class="ideas">'+(pend.length?pend.map(ideaCard).join(''):'<div class="inote" style="opacity:.6">All caught up 🎉</div>')+'</div>';
-  if(appr.length)h+='<div class="eyebrow" style="margin:1.4rem 0 .6rem;color:#3ddc84">Approved → in the pipeline ('+appr.length+')</div><div class="ideas">'+appr.map(ideaCard).join('')+'</div>';
-  if(pass.length)h+='<div class="eyebrow" style="margin:1.4rem 0 .6rem;color:#8aa0bb">Passed ('+pass.length+')</div><div class="ideas">'+pass.map(ideaCard).join('')+'</div>';
-  box.innerHTML=h;
-}
-function setStatus(id,status){
-  CONTENT=CONTENT.map(function(i){return i.id===id?Object.assign({},i,{status:status}):i;});
-  renderIdeas();
-  fetch(CONTENT_API+'content-set',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({id:id,status:status})}).then(function(r){return r.json();}).then(function(list){if(Array.isArray(list)){CONTENT=list;renderIdeas();}}).catch(function(){});
-}
-function loadContent(){
-  fetch(CONTENT_API+'content-get').then(function(r){return r.json();}).then(function(list){if(Array.isArray(list))CONTENT=list;renderIdeas();}).catch(function(){var b=document.getElementById('ideabox');if(b)b.innerHTML='<div class="inote" style="opacity:.6">Couldn\'t load ideas.</div>';});
-}
 function renderContent(){
-  var h='<div class="phead"><h1>Content Pipeline</h1><span class="via claude">Interactive</span></div>';
-  h+='<div class="flink"><b>Approve or pass each idea below — one click.</b> Approved ideas flow into scripting and I pick them up; passed ones archive. The play: grow attention first (influencer → business owner), proof woven in.</div>';
-  h+='<div id="ideabox"><div class="inote" style="opacity:.6">Loading ideas…</div></div>';
+  var h='<div class="phead"><h1>Content Pipeline</h1><span class="via claude">Editable</span></div>';
+  h+='<div class="flink"><b>The angle:</b> building a real San Antonio business with AI — and proving it can land real paying customers. The cleaning footage is the proof; the build is the hook. Edit ideas in your <b>control-panel Sheet</b> (rows <i>idea1, idea2…</i> as <i>Title | platforms | status | note</i>) or just tell me.</div>';
+  h+='<div class="ideas">'+CONTENT_IDEAS.map(function(it){
+    var col=STATUS_COLORS[it.status]||'#8aa0bb';
+    return '<div class="idea"><div class="ihead"><span class="ititle">'+it.title+'</span><span class="ist" style="background:'+hexa(col,.16)+';color:'+col+'">'+it.status+'</span></div><div class="iplat">'+(it.plat||[]).map(function(p){return '<span>'+p+'</span>';}).join('')+'</div><div class="inote">'+it.note+'</div></div>';
+  }).join('')+'</div>';
   h+='<div class="eyebrow" style="margin:1.7rem 0 .7rem">Vision per platform</div>';
   h+='<div class="visions">'+PLATFORM_VISION.map(function(p){
     return '<div class="vision"><div class="vtop"><span class="vdot" style="background:'+p.color+'"></span><b>'+p.name+'</b><span class="vvibe">'+p.vibe+'</span></div><div class="vdesc">'+p.desc+'</div></div>';
   }).join('')+'</div>';
   document.getElementById('panel').innerHTML=h;
-  loadContent();
 }
 
 /* ---- gate ---- */
