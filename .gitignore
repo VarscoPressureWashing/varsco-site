@@ -11,3 +11,14 @@ index.house-tour.bak.html
 varsco-site-deploy/
 Varsco Content/
 .claude/
+varsco-video1/
+
+# Personal media + secrets (never ship these)
+voice/
+likeness/
+.env
+content-out/
+
+# Local tooling & archives (not part of the deployed site)
+tools/
+varsco-site.zip

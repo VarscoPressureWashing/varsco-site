@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Varsco — Content Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#07182E;--blue:#1E8BFF;--blue-bright:#43A6FF;--paper:#0a1626;--card:#0f2138;--card-2:#13294a;--slate:#8aa0bb;--line:rgba(255,255,255,.10);--good:#3ddc84;--gold:#FFB323;--amber:#ffb84d;--purple:#c8a6ff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Manrope',sans-serif;background:radial-gradient(130% 80% at 85% -10%,#11335c,var(--paper) 55%);color:#eaf1fb;-webkit-font-smoothing:antialiased;min-height:100vh}
+h1,h2,h3,.disp{font-family:'Anton',sans-serif;font-weight:400;letter-spacing:.5px;text-transform:uppercase}
+.wrap{max-width:920px;margin:0 auto;padding:1.8rem 1.1rem 4rem}
+.eyebrow{font-weight:800;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-bright)}
+.brand{font-family:'Anton';font-size:1rem;color:#fff;letter-spacing:.5px}
+.brand span{color:var(--blue-bright)}
+h1.title{font-size:2.2rem;color:#fff;margin:.25rem 0 .4rem;line-height:1}
+.spine{background:linear-gradient(135deg,rgba(30,139,255,.13),rgba(67,166,255,.04));border:1px solid var(--line);border-radius:13px;padding:.85rem 1rem;font-size:.9rem;color:#cfe0f5;line-height:1.5}
+.spine b{color:#fff}.spine em{color:var(--gold);font-style:normal}
+/* production model */
+.prod{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:.8rem 1rem;margin-top:.7rem;font-size:.86rem;color:#c4d3e6;line-height:1.55}
+.prod b{color:#fff}.prod .pp{color:var(--purple);font-weight:700}
+.legend{display:flex;flex-wrap:wrap;gap:.45rem .9rem;margin-top:.65rem}
+.lg{display:flex;align-items:center;gap:.42rem;font-size:.73rem;font-weight:700;color:#cfe0f5}
+.lg .dot{width:10px;height:10px;border-radius:3px;flex:none}
+.dot.aiyou{background:var(--purple)}.dot.higg{background:var(--blue-bright)}.dot.screen{background:var(--amber)}.dot.job{background:var(--good)}
+/* tabs */
+.tabs{display:flex;gap:.4rem;margin:1.4rem 0 0;border-bottom:1px solid var(--line)}
+.tab{flex:1;background:none;border:none;color:var(--slate);font-family:'Manrope';font-weight:800;font-size:.92rem;padding:.8rem .4rem;cursor:pointer;border-bottom:3px solid transparent;display:flex;align-items:center;justify-content:center;gap:.45rem;transition:color .15s}
+.tab .d{width:10px;height:10px;border-radius:50%;background:currentColor;opacity:.5}
+.tab:hover{color:#cfe0f5}
+.tab.on{color:#fff;border-bottom-color:var(--tc)}
+.tab.on .d{opacity:1;background:var(--tc)}
+/* vision */
+.vision{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--tc);border-radius:12px;padding:1rem 1.1rem;margin:1.3rem 0 1.1rem}
+.vision .vh{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.vision .vname{font-family:'Anton';font-size:1.25rem;color:#fff}
+.vision .vvibe{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--tc)}
+.vision .vd{font-size:.9rem;color:#c4d3e6;line-height:1.55;margin:.5rem 0 .2rem}
+.vision .vmeta{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.7rem}
+.vision .vchip{font-size:.7rem;font-weight:700;color:#cfe0f5;background:rgba(255,255,255,.06);border:1px solid var(--line);padding:.3rem .6rem;border-radius:8px}
+.vision .vchip b{color:#fff}
+.counts{display:flex;gap:.9rem;flex-wrap:wrap;margin:.2rem 0 1rem;font-size:.74rem;color:var(--slate)}
+.counts b{color:#cfe0f5}
+/* cards */
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1rem 1.05rem;margin-bottom:.85rem}
+.card .ch{display:flex;align-items:flex-start;justify-content:space-between;gap:.7rem;margin-bottom:.45rem}
+.card .ct{font-weight:800;font-size:1.02rem;color:#fff;line-height:1.25}
+.card .hk{font-size:.88rem;color:#c4d3e6;line-height:1.5;margin-bottom:.5rem}
+.status{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:.26rem .5rem;border-radius:6px;white-space:nowrap;flex:none}
+details{border-top:1px solid var(--line)}
+summary{cursor:pointer;padding:.5rem 0;font-size:.76rem;font-weight:800;letter-spacing:.02em;color:var(--slate);list-style:none;display:flex;align-items:center;gap:.45rem;text-transform:uppercase}
+summary::-webkit-details-marker{display:none}
+summary .pl{margin-left:auto;font-size:1rem;color:var(--slate);font-weight:600}
+details[open] summary .pl{transform:rotate(45deg)}
+.dbody{font-size:.88rem;color:#d3e0f0;line-height:1.55;padding:.1rem 0 .7rem}
+.dbody.cap{color:#cfe0f5;font-style:italic}
+.shots{list-style:none;padding:.1rem 0 .7rem;margin:0}
+.shots li{font-size:.85rem;color:#d3e0f0;line-height:1.45;padding:.22rem 0 .22rem .7rem;border-left:2px solid var(--line);margin-bottom:.3rem}
+.tag{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.03em;padding:.08rem .34rem;border-radius:4px;margin-right:.4rem;white-space:nowrap}
+.tag.aiyou{background:rgba(200,166,255,.18);color:var(--purple)}
+.tag.higg{background:rgba(67,166,255,.18);color:var(--blue-bright)}
+.tag.screen{background:rgba(255,184,77,.16);color:var(--amber)}
+.tag.job{background:rgba(61,220,132,.16);color:var(--good)}
+.acts{display:flex;gap:.5rem;margin-top:.75rem}
+.btn{border:none;border-radius:9px;padding:.6rem;font-family:'Manrope';font-weight:800;font-size:.84rem;cursor:pointer;transition:filter .12s}
+.btn:hover{filter:brightness(1.12)}
+.btn.prim{flex:1;background:linear-gradient(135deg,var(--blue),var(--blue-bright));color:#fff}
+.btn.adv{flex:1;background:rgba(200,166,255,.18);color:var(--purple)}
+.btn.go{flex:1;background:rgba(61,220,132,.18);color:var(--good)}
+.btn.no{flex:0 0 auto;background:rgba(255,120,120,.12);color:#ff9a9a;padding:.6rem .9rem}
+.btn.ghost{flex:1;background:rgba(255,255,255,.06);color:#cfe0f5}
+.foot{margin-top:1.8rem;background:var(--card-2);border:1px solid var(--line);border-radius:12px;padding:1rem 1.1rem;font-size:.84rem;color:#c4d3e6;line-height:1.55}
+.foot b{color:#fff}.foot code{background:rgba(255,255,255,.08);padding:.1rem .34rem;border-radius:4px;font-size:.8rem}
+.foot .frow{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.8rem}
+.foot .fbtn{background:rgba(255,255,255,.07);border:1px solid var(--line);color:#cfe0f5;font-weight:700;font-size:.78rem;padding:.45rem .75rem;border-radius:8px;cursor:pointer}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#13294a;border:1px solid var(--line);color:#fff;font-weight:700;font-size:.85rem;padding:.7rem 1.1rem;border-radius:10px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:50}
+.toast.show{opacity:1}
+@media(max-width:560px){h1.title{font-size:1.8rem}.tab{font-size:.82rem}.card .ct{font-size:.96rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">VARS<span>CO</span> · CONTENT STUDIO</div>
+  <h1 class="title">The Content Plan</h1>
+  <div class="spine"><b>The spine:</b> can a 24-year-old use AI to build a real business and make his first <em>$10,000</em>? Early posts show the <b>AI build & backend</b> — not cleaning yet. The story spikes when <b>AI lands the first customer</b>. That's the success people follow. <b>Attention is the currency.</b></div>
+
+  <div class="prod">
+    <b>Production model:</b> every shot of Jacob is <span class="pp">AI-generated</span> — Higgsfield animates a <b>real selfie</b> (most realistic "identical-you") and an <b>AI voice</b> reads the script. No real camera time. <b>Real footage is reserved for actual job results</b>, folded in once clients land.
+    <div class="legend">
+      <span class="lg"><i class="dot aiyou"></i>AI · You — Higgsfield likeness + AI voiceover</span>
+      <span class="lg"><i class="dot higg"></i>AI · B-roll — cinematic AI clips</span>
+      <span class="lg"><i class="dot screen"></i>Screen — the build / dashboard</span>
+      <span class="lg"><i class="dot job"></i>Real · Job — actual cleaning footage (later)</span>
+    </div>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+  <div id="view"></div>
+
+  <div class="foot">
+    <b>This is a live document.</b> Decline any idea and it's removed — a fresh one from the reserve takes its place, so each tab always holds <b>10</b>. Your approvals & statuses are saved in this browser. When Netlify credits reset, this exports straight into the Command Center's Content tab (same fields).
+    <div class="frow">
+      <button class="fbtn" onclick="copyJSON()">⧉ Copy plan as JSON</button>
+      <button class="fbtn" onclick="resetAll()">↺ Reset to defaults</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================================
+   VARSCO CONTENT STUDIO — single source of truth.
+   Statuses: idea → approved → filming → ready → posted.
+   PRODUCTION: every "Jacob" shot is AI (Higgsfield real-selfie animation + AI voice).
+   Shot tags: AIYOU (AI version of Jacob) · HIGG (AI cinematic b-roll, no face) ·
+              SCREEN (screen-record of the build) · JOB (real cleaning footage, gathered later).
+   Each platform keeps 10 LIVE ideas; declining one pulls the next from RESERVE.
+   Exports to command-center.html → CONTENT_IDEAS (id/title/plat/status + caption/script/shots).
+   ========================================================================== */
+function S(t,h,cap,scr,shots,status){return {title:t,hook:h,caption:cap,script:scr,shots:shots,status:status||'idea'};}
+
+var DEFAULTS={
+ tiktok:{
+  color:'#69C9D0', vibe:'Comedy / chaos — reach',
+  desc:'"I let AI run my pressure-washing business and it’s chaos." Fast 1-second hooks, self-aware, a running series people binge. This is the volume + reach engine — the top of the whole funnel. Follow-trigger every video: "follow to see if this actually works."',
+  cadence:'3×/week', style:'Raw, vertical, native', driver:'Reach & follows',
+  ideas:[
+   S("Day 1: I gave AI my whole business","I’m 24 and I just handed my entire pressure-washing business to an AI.",
+     "Day 1 of letting AI run my business 🤖 can a robot actually get me customers? follow to find out → link in bio #smallbusiness #ai #sanantonio #buildinpublic",
+     "“What’s up — I’m Jacob. I’m 24, and yesterday I officially started a pressure washing company here in San Antonio. But I’m doing it different. I’m not hiring a marketing agency. I’m not paying a web designer. I’m handing the entire business side to artificial intelligence. The website? AI built it. The ads? AI writes them. Finding customers? That’s the AI’s job too. My job is the actual work — the driveways, the houses, the cleaning. Everybody says AI is going to change everything. Cool. Let’s find out if it can get a 24-year-old his first real customer. Day one starts now. Follow along — because win or lose, you’re going to see all of it.”",
+     ["AIYOU: AI-Jacob delivers the hook to camera — confident, fast energy.","SCREEN: quick cut of Claude / the dashboard building the site.","HIGG: 1-sec cinematic power-washer wand tease.","Text overlay: “DAY 1 — AI runs the business”"]),
+   S("AI built my website in 20 minutes","I asked AI to build my business website. It did it in 20 minutes.",
+     "POV: you ask AI to build your business website and it just… does it 😳 20 min. result in bio #ai #entrepreneur #buildinpublic #nocode",
+     "“Real quote from a web designer: two thousand dollars, and about a week, to build my business website. So instead… I opened up an AI and typed: build me a website for my pressure washing company. No code. No templates. I just talked to it. Twenty minutes later I had a full site — booking, photos, reviews, the works. It’s live right now, link in my bio, go judge it yourself. So: two grand and a week… or twenty minutes and basically free. I’m not saying web designers are cooked. But for a brand-new business with no money? This changes everything. And it’s only day one of this experiment.”",
+     ["SCREEN: time-lapse screen-record of the site coming together.","AIYOU: AI-Jacob reaction beat when it’s done.","Text overlay: “20 MINUTES vs $2,000”"]),
+   S("The money machine nobody shows you","Watch me set up the system that takes payments while I sleep.",
+     "the backend nobody films 👀 booking → quote → invoice → paid, fully automated. building with AI pt.3 #automation #buildinpublic #smallbiz",
+     "“Everybody films the pressure washing. The satisfying before-and-afters. Nobody films THIS — the boring system that actually makes it a business. Watch. A customer clicks one link. They tell the system what they need. It replies in seconds — not hours, seconds. Books the job. Sends the quote. Sends the invoice. Takes the payment. I built this whole pipeline with AI in an afternoon, and it runs while I’m out doing the actual work. The cleaning gets the views. But this right here? This is the money machine. Follow along — because next, we find out if it can actually catch a customer.”",
+     ["SCREEN: walk through booking → quote → invoice + dashboard.","AIYOU: AI-Jacob narrating over the screen.","HIGG: cinematic ‘gears/machine’ metaphor clip for the open.","Text overlay: “the money machine”"]),
+   S("AI runs my marketing while I sleep","POV: it’s 2am and the AI is running my ad campaigns.",
+     "while I sleep 😴 the AI writes ads, posts, hunts leads. is this cheating? #ai #marketing #smallbusiness #passive",
+     "“It’s 2am in San Antonio, and I’m asleep. But my business isn’t. Right now, an AI is writing my ad copy. Testing which version gets more clicks. Adjusting. Posting. Hunting for homeowners who need their driveway cleaned. I used to think you needed a whole marketing team for this — and that’s exactly why small guys lose, right? We can’t afford the team. Well… now the team costs less than my truck payment, it never sleeps, never complains, and never takes a day off. I wake up, check the dashboard, and the work just… happened. Tell me this isn’t the biggest cheat code small business has ever seen.”",
+     ["HIGG: cinematic dark-desk / night scene.","AIYOU: AI-Jacob voiceover over the scene.","SCREEN: ads manager + analytics ticking.","Text overlay: “2:00 AM” glowing clock"]),
+   S("Still $0 customers — did I get scammed?","Week 2. AI built everything. Customers? Zero. Is this a scam?",
+     "the part of the journey nobody posts 😅 everything’s built, still 0 customers. is AI actually gonna work?? #honest #startup #buildinpublic",
+     "“Alright, real talk. Week two. The AI built me a beautiful website. A booking system. Ads. The whole machine is sitting there, humming, ready… and I have exactly zero customers. Zero. I’m not going to lie — I stared at that dashboard last night like… did I just get scammed by a robot? But here’s the thing about week two: everybody quits in week two. The machine is built. The ads are learning. San Antonio just doesn’t know I exist yet. So no, I’m not quitting. I’m doubling down. Follow along — because either this turns around and it’s legendary… or you get to watch me lose to a computer.”",
+     ["AIYOU: AI-Jacob to camera — honest, a little frustrated (relatable).","SCREEN: analytics showing 0 leads.","Text overlay: “0 CUSTOMERS 😬”"]),
+   S("🚨 MILESTONE: AI got me my first customer","It worked. The AI just landed me my first paying customer.",
+     "IT WORKED 🚨 the AI just got me my FIRST paying customer in San Antonio. the system works. who’s next? 👀 #firstcustomer #ai #win #sanantonio",
+     "“Stop — stop everything. It happened. Someone in San Antonio — a real person, with a real house — just booked Varsco through the system the AI built. I didn’t knock on their door. I didn’t cold call. They found the site, clicked book, and now there’s a real job sitting on my calendar. Everybody in the comments said AI can’t get you real customers. There it is. On the screen. The robot found me a customer while I was eating dinner. This was the whole bet — and it just paid off for the first time. First customer down. First ten grand, here we come. You picked a good time to follow.”",
+     ["AIYOU: AI-Jacob genuinely hyped reaction — keep it raw, not over-produced.","SCREEN: the REAL booking notification / Jobber request (this is the authentic proof on screen).","Text overlay: “FIRST CUSTOMER ✅”"]),
+   S("AI got the lead — now I bring the muscle","The AI got the customer. Now the real work shows up.",
+     "AI got the lead, I bring the muscle 💪 first real job. the most satisfying driveway in SA #satisfying #pressurewashing #sanantonio",
+     "“So the AI got me the customer — first one ever, booked through the website it built. But here’s where the robot taps out: it cannot hold a pressure washer. That part is all me. So today, the experiment gets real. First job. A real driveway, years of San Antonio grime baked into it, and one guy with something to prove. Watch this… THAT is what we do. AI handles the finding. I handle the cleaning. And honestly? This team of two might be unstoppable. One job down. Follow the journey — the goal is ten grand, and we are officially on the board.”",
+     ["JOB: driveway before → after, satisfying ASMR clean (REAL footage — the first job, once landed).","AIYOU: AI-Jacob bookend intro/outro.","Text overlay: “AI got the lead → I do the work”"]),
+   S("Every dollar so far (full transparency)","$___ toward my first $10k. Here’s exactly where it came from.",
+     "full transparency 💰 every dollar so far toward my first $10k. scoreboard is live #money #transparency #smallbusiness",
+     "“I promised you full transparency, so let’s open the books. Here’s every dollar so far. What I’ve made… and what I spent to get here — the truck, the trailer, the equipment, the AI tools. Most business content skips this part, because the real numbers are humbling. I don’t care. The goal is my first ten thousand dollars, earned right here in San Antonio, and you’re going to watch every dollar of it happen — the wins AND the painful weeks. That’s the deal. This is the scoreboard. Save this, follow along, and check the next update — because this number only moves one direction from here.”",
+     ["SCREEN: animated money scoreboard / running total (no per-service prices).","AIYOU: AI-Jacob narrating the numbers.","Text overlay: progress bar to $10,000"]),
+   S("I cloned myself with AI (and it’s weird)","Plot twist: the guy in all these videos is AI. Watch.",
+     "plot twist 🤯 the ‘me’ in all my videos is AI. I trained it on my own face. the future is weird #ai #higgsfield #contentcreator #aiavatar",
+     "“Okay. Confession time. The guy you’ve been watching in all these videos? …That’s not me. I mean — it IS me. It’s my face. It’s my voice. But it’s AI. I trained it on my real photos and my real voice, and now it makes my videos while I’m out washing driveways. And you never noticed. That’s exactly the point. I’m one guy building a business alone — I don’t have time to film every single day. So I cloned myself. The clone does the talking. I do the working. Is that genius… or is that terrifying? Honestly? Both. Welcome to building a business in 2026.”",
+     ["AIYOU: Higgsfield Soul / real-selfie animation of ‘AI-Jacob’ — lean fully into the reveal.","SCREEN: the Higgsfield generation producing the avatar.","Text overlay: “you’re watching the AI version of me”"]),
+   S("30 days of AI running my business","30 days ago I gave AI my business. Here’s what happened.",
+     "30 days of letting AI run my pressure-washing business 📊 customers, dollars, lessons. month 2 starts now → following? #buildinpublic #30days",
+     "“Thirty days ago, I handed my entire business to an AI and told you to watch what happens. Here’s the scoreboard. The AI built a website, a booking system, and ran ads all over San Antonio. Real customers booked. Real money came in — here’s the number. And real lessons too: the AI is fast, but it’s not magic. It can’t hold a wand. It can’t shake a hand. That first week with zero customers nearly broke me. But month one is in the books, the machine works, and now we scale it. Month two starts tomorrow. The goal is still ten grand. Follow along — this is just getting started.”",
+     ["AIYOU: AI-Jacob recap to camera — earned confidence.","SCREEN: fast dashboard montage of the month.","Text overlay: “30 DAYS LATER”"]),
+   /* ---- reserve ---- */
+   S("The AI wrote a better ad than me","I wrote an ad. Then the AI wrote one. It wasn’t close.",
+     "I vs the AI: who writes the better ad? 😤 (it wasn’t close) #ai #copywriting #marketing #buildinpublic",
+     "“So I had this idea: I’ll write my own ad. I run the company, I know the business — how hard can it be? An hour later, I had… this. Read it. It’s fine. It’s the most ‘fine’ ad ever written. Then I asked the AI for one. It took ten seconds. TEN. SECONDS. And look at it — better hook, better offer, it even knew to mention San Antonio heat stains. I’m not going to lie, that one stung a little. I spent an hour losing to a ten-second robot. Be honest in the comments — which one would actually make you click? Yeah… that’s what I thought. The robot writes the ads now.”",
+     ["SCREEN: side-by-side of your ad vs the AI’s.","AIYOU: AI-Jacob defeated reaction.","Text overlay: “ME vs THE ROBOT”"]),
+   S("I let AI figure out what to charge","I didn’t know what to charge. So I let the AI figure it out.",
+     "pricing a business is scary 😅 so I let AI run the math. here’s how it thinks #pricing #smallbusiness #ai",
+     "“Honest question for anyone who’s started a business: how do you figure out what to charge? Because that was my biggest fear. Charge too much — nobody books. Charge too little — I’m working weekends for free. Most new guys just… guess. So instead, I sat down with the AI and we ran the actual math. My costs. My time per job. What the San Antonio market actually pays. Gas, water, equipment wear — stuff I never would’ve thought of. And out came pricing logic that actually makes sense. No more guessing. No more undercutting myself out of business. The robot did the math so I can do the work. That alone was worth the whole experiment.”",
+     ["SCREEN: the AI reasoning through cost/time/market (keep actual prices off-screen).","AIYOU: AI-Jacob narrating the ‘aha’.","Text overlay: “AI did the pricing math”"]),
+   S("Robots are texting my customers now","Every lead gets a reply in seconds — and it’s not me typing.",
+     "speed to lead wins 🏃 every customer gets answered in seconds, automatically. small biz can’t afford to be slow #automation #ai #smallbusiness",
+     "“Here’s a stat that changed how I built this whole company: the first business to respond usually wins the customer. Not the best one. The FASTEST one. So watch this. Someone just asked for a quote on my site… and they already got a reply. Four seconds. I’m not even holding my phone — I’m filming this video. The AI answered, asked the right questions, and started the quote. Meanwhile the big companies will get back to them ‘within two business days.’ That’s the gap, right there. That’s how a 24-year-old with one truck beats companies ten times his size. Speed to lead. Robots don’t sleep on customers.”",
+     ["SCREEN: an incoming request → instant auto-reply.","AIYOU: AI-Jacob explaining ‘speed to lead’.","Text overlay: “replied in 4 seconds ⚡”"]),
+   S("AI designed my entire brand","Logo, colors, the whole look — AI made my brand in an afternoon.",
+     "I built a whole brand identity with AI in one afternoon 🎨 #branding #ai #startup #buildinpublic",
+     "“Quick story about this logo. A branding agency quoted me thousands of dollars for an ‘identity package.’ Thousands. For a company that had zero customers at the time. So I did what this whole channel is about — I sat down with the AI for one afternoon. We went through logo concepts, colors, fonts, the whole vibe. I said no a hundred times. It never got tired of me. And by dinner… Varsco had a brand. The wordmark, the blue, the site, all of it — built from nothing, for basically free. Does it look like thousands of dollars? You tell me. The barriers to starting something real are GONE, man. Build the thing.”",
+     ["SCREEN: brand iterations generating.","AIYOU: AI-Jacob revealing the final wordmark/site.","Text overlay: “$0 designer → a real brand”"])
+  ]
+ },
+ instagram:{
+  color:'#E1306C', vibe:'The journey, polished',
+  desc:'The serialized build story — documentary feel, clean covers, milestone carousels. People subscribe to the arc and binge the back catalog. Higher production than TikTok; this is where the journey gets credibility. Tracking link in bio.',
+  cadence:'2×/week', style:'Polished Reels + carousels', driver:'The story & saves',
+  ideas:[
+   S("The journey begins (intro Reel)","I’m building a real business — and letting AI do the heavy lifting.",
+     "New chapter. I’m 24, building a pressure-washing business in San Antonio, and documenting every step of using AI to grow it. Follow the journey — first goal: my first $10,000. 🧵 #buildinpublic #entrepreneur #ai",
+     "“I’m 24 years old. I live in San Antonio, Texas. And this is day one of building something real — a pressure washing company called Varsco. But this isn’t a normal business story. Because my entire back office… is artificial intelligence. The website, the marketing, the customer system — AI builds it and runs it, while I do the real work with my own two hands. I’m going to document everything. The wins. The failures. The actual numbers, dollar for dollar. First goal: ten thousand dollars. No investors. No shortcuts. One guy, one truck, and the smartest tools that have ever existed. This is the journey. Welcome to day one.”",
+     ["AIYOU: cinematic AI-Jacob to camera — clean framing, documentary cold-open.","HIGG: cinematic establishing shots (truck, San Antonio, the wand) for the montage.","Text: clean lower-third title card “THE JOURNEY — DAY 1”"]),
+   S("Carousel: my exact AI stack","The tools doing the work of a whole team.",
+     "The AI stack running my entire business (swipe) 👉 marketing, content, the website, customer flow — here’s every tool and what it does. Save this. #ai #tools #smallbusiness #buildinpublic",
+     "Slide copy — 1: ‘How I run a business solo (with AI).’ 2: Claude — the brain (site, copy, ops). 3: Higgsfield — the content engine. 4: Jobber — booking → paid. 5: Meta — the ad machine. 6: ‘This replaced a whole team. Follow for the results.’",
+     ["SCREEN: clean screenshots of each tool for the slides.","Design: consistent branded carousel template (navy + blue).","HIGG: optional cinematic cover image."]),
+   S("Reel: building the website (cinematic)","Watch a real business website get built — start to finish.",
+     "From blank screen to live site ⚡ this is what building with AI actually looks like. The result is in my bio. #webdesign #ai #buildinpublic #cinematic",
+     "“This is what building a business looks like in 2026. A blank screen. A conversation with an AI. And twenty minutes. No code. No agency. No two-thousand-dollar invoice. Just an idea, described in plain English, becoming a real, live website while I watched. Booking system — done. Reviews — done. The whole storefront of my company… done before my coffee got cold. varscoservices.com. It’s in my bio — go look at what a robot built. A year ago this would have taken me a month and money I didn’t have. Today it’s the easiest part of starting a company. The tools have changed. The excuses are gone. So… what are you waiting on?”",
+     ["SCREEN: polished, graded screen-record time-lapse of the build.","AIYOU: a few AI-Jacob desk cutaways, cinematic.","Music-led, satisfying build rhythm; clean captions."]),
+   S("Carousel: how my booking system works","Click to clean — the whole customer journey.",
+     "How you’d actually book me (and how AI makes it effortless) 👉 swipe. From ‘I need a quote’ to scheduled in minutes. #customerexperience #automation #smallbusiness",
+     "Slides: 1: ‘What happens when you book Varsco.’ 2: Request on the site. 3: Instant reply. 4: Quote. 5: Scheduled & paid. 6: ‘Built to make hiring me easy. Link in bio.’",
+     ["SCREEN: clean shots of each step.","Design: infographic-style branded slides with arrows.","Soft CTA on the last slide."]),
+   S("Reel: a day in the life (AI + me)","A solo founder’s day — half me, half AI.",
+     "A day building this business: half me, half AI 🤝 here’s what that actually looks like. #dayinthelife #entrepreneur #buildinpublic #ai",
+     "“A day building Varsco — hour by hour. 6am: I plan the day with my AI. It’s like a morning meeting with a business partner who never sleeps. By seven, it’s writing today’s content and checking the ad numbers… while I load the truck. Midday is mine — the real work, the part AI can’t touch. And while I’m out there? It’s answering quote requests in seconds, so no customer ever waits on me. Evening, we review together: what worked, what didn’t, what tomorrow looks like. Half me. Half machine. One business. People ask if the AI replaces the work. No. It replaces the team I couldn’t afford — so the work actually stands a chance.”",
+     ["AIYOU: AI-Jacob documentary cutaways (desk, planning).","HIGG: 1–2 cinematic transition clips (gear, truck).","Warm grade, clean captions, calm music."]),
+   S("🚨 MILESTONE Reel: our first customer","The moment the AI experiment paid off.",
+     "We did it. AI landed Varsco its first paying customer. 🙏 To everyone following since day one — this is the proof it works. The journey’s just getting started. #milestone #firstcustomer #buildinpublic",
+     "“Three weeks ago, this company was an idea and an AI. Today… a real customer in San Antonio booked us. Through a website a robot built. Found by marketing a robot ran. I keep looking at the booking like it’s going to disappear. It’s not. It’s real. And it’s milestone one. To everyone who’s been following since day one — thank you. You watched the zero-customer weeks. You watched me doubt this whole thing. This is the proof the experiment works. And here’s what I keep thinking: if one customer can find us this way… so can a hundred. The journey is officially real now. Milestone one, done. Let’s go get the next one.”",
+     ["AIYOU: AI-Jacob to camera — sincere (the emotional centerpiece).","SCREEN: the REAL booking, tastefully shown.","Text: ‘MILESTONE 01 — FIRST CUSTOMER’; swelling music."]),
+   S("Reel: first job, cinematic clean","The first transformation — done right.",
+     "First job in the books 🧼 AI got the lead, I brought the result. San Antonio, this is Varsco. #satisfying #pressurewashing #sanantonio #beforeandafter",
+     "“The AI found the customer. But this part — this part is mine. First job in the books for Varsco. Years of San Antonio sun and grime… versus one very motivated 24-year-old. And it wasn’t close. Look at that transformation. Watch it again — I’ll wait. THIS is why I started the company. That reveal never gets old, and neither does the look on a homeowner’s face when they see it in person. The machine handles the marketing. I bring the result. San Antonio — this is Varsco. Your driveway could be next. The booking link is in my bio.”",
+     ["JOB: cinematic before → after of the first real job (REAL footage, once landed), graded.","AIYOU: AI-Jacob intro/outro.","Satisfying sound design; clean CTA end card."]),
+   S("Carousel: month 1 by the numbers","Everything I made, spent, and learned — transparent.",
+     "Month 1, fully transparent 📊 (swipe) leads, jobs, dollars, lessons. No fluff. #transparency #buildinpublic #smallbusiness #entrepreneur",
+     "Slides: 1: ‘Month 1 — the real numbers.’ 2: Leads from AI. 3: Jobs booked. 4: $ toward $10k. 5: Biggest lesson. 6: ‘Month 2 goal → follow along.’",
+     ["Design: branded data-viz carousel (charts, big numbers).","AIYOU: AI-Jacob cover slide, confident.","Keep per-service prices off; show totals/progress only."]),
+   S("Reel: why I document all of this","Attention is the real currency — here’s why I film everything.",
+     "Why I post every step (even the failures) 👇 in 2026, attention is the currency — and the story IS the marketing. #buildinpublic #creator #entrepreneur #mindset",
+     "“Real talk about why I post every step of this — even the embarrassing weeks. People don’t follow businesses. They follow stories. Nobody cares about another pressure washing company — there are fifty in this city. But a 24-year-old betting everything on AI actually working? Watching live to find out if it pays off? THAT’S a story. And in 2026, attention is the most valuable currency there is. Every follower is somebody rooting for this to work — and some of them live in San Antonio and own a driveway. You see where this is going. The story IS the marketing. The journey IS the ad. So I document everything… and the business grows because of it. That’s the playbook. Steal it.”",
+     ["AIYOU: AI-Jacob to camera, reflective, well-lit (thought-leader tone).","SCREEN: subtle b-roll of the content / analytics.","Clean, minimal captions."]),
+   S("Carousel: what I’d tell anyone starting with AI","5 things I learned letting AI run a business.",
+     "5 things I learned letting AI run my business (save this) 👉 #ai #smallbusiness #buildinpublic #lessons",
+     "Slides: 1: ‘5 lessons from letting AI run my business.’ 2: AI builds fast — you steer. 3: It won’t get customers overnight. 4: Show the process, not just results. 5: Speed beats perfection. 6: ‘Follow — I’m proving it in real time.’",
+     ["Design: value-carousel template, highly saveable.","AIYOU: AI-Jacob cover slide.","Strong hook on slide 1."]),
+   /* ---- reserve ---- */
+   S("Reel: the tools that replaced a team","One person. Five AI tools. A whole company.",
+     "I run this entire business alone — with 5 AI tools doing the rest. Here’s the lineup. #ai #solopreneur #buildinpublic",
+     "“Let me introduce you to my team. This is my marketer — writes every ad, never misses a deadline. My designer — built the brand in an afternoon. My ops manager — answers every customer in four seconds flat. My content guy — makes these videos. And my business advisor — available 24/7, never bills me hourly. Here’s the thing… none of them are people. Every single one is an AI, and together they cost less per month than one employee costs per DAY. One person. Five AI tools. A whole company. This is what ‘small business’ means now — and honestly, the big guys should be nervous.”",
+     ["SCREEN: each tool as a clean ‘team card’.","AIYOU: AI-Jacob as the ‘CEO’ bookend.","Snappy, branded."]),
+   S("Reel: behind the scenes of an AI video","How I make content with an AI version of me.",
+     "How an AI helps me make these videos 🎬 BTS of the content machine. #higgsfield #ai #contentcreator #behindthescenes",
+     "“Time to show you how the sausage gets made. The host of this account — the guy talking right now — is AI. Trained on my real face. Cloned from my real voice. Here’s the actual process: I write the story with my AI. It generates ‘me’ saying it. I review every single video before it posts — my face, my words, my call. Why? Because I’m one person running a whole company, and the cleaning doesn’t film itself. Some people will hate this. I get it. But I’d rather be honest about the machine than pretend I film daily videos between driveways. This is the future of being a one-man brand… and you’re watching it work in real time.”",
+     ["SCREEN: the Higgsfield generation of ‘AI-Jacob’ on screen.","AIYOU: the finished AI-Jacob clip for the reveal.","Text: ‘REAL face → GENERATED everything’."]),
+   S("Reel: the week I almost quit","Week 2. Zero customers. Here’s what kept me going.",
+     "the week I almost quit 😮‍💨 0 customers, doubting everything. why I didn’t stop 👇 #buildinpublic #mentalhealth #entrepreneur #honest",
+     "“I want to tell you about the week I almost quit. Week two. The website was perfect. The system was perfect. And nobody — nobody — was booking. I sat at this desk and genuinely thought: maybe I wasted my money. Maybe the people laughing at the AI thing were right. Here’s what got me through it. I stopped checking the dashboard every ten minutes… and I asked one question: is the machine broken, or is it just early? It was just early. The ads were still learning. The city didn’t know I existed yet. One week later — first customer. The lesson, and you should save this for YOUR hard week: most people don’t fail. They quit during the silence right before it works.”",
+     ["AIYOU: AI-Jacob to camera, vulnerable, intimate framing.","Soft grade; quiet music; let it breathe.","Minimal captions."]),
+   S("Carousel: my San Antonio service area","Where Varsco shows up — your neighborhood?",
+     "Serving San Antonio + surrounding 🗺️ is your neighborhood on the list? (swipe) #sanantonio #pressurewashing #local",
+     "Slides: map of the service area, the neighborhoods, ‘not sure? ask — link in bio.’",
+     ["Design: branded map carousel.","AIYOU: AI-Jacob ‘on location’ cover.","Local CTA."])
+  ]
+ },
+ facebook:{
+  color:'#1877F2', vibe:'Journey + local roots',
+  desc:'The underdog founder story with San Antonio front and center. Warmer, slightly longer, community tone. Highly shareable in local groups — and the platform most likely to convert straight into a local booking. Every post is book-ready.',
+  cadence:'2×/week', style:'Warm, local, shareable', driver:'Local bookings',
+  ideas:[
+   S("Meet your San Antonio neighbor","Hi SA — I’m Jacob, and I just started Varsco.",
+     "Hey San Antonio 👋 I’m Jacob — 24 years old and just launched Varsco Pressure Washing right here at home. I’m building it the modern way (using AI to run the back office) so I can focus on doing great work on YOUR home. Driveways, house washing, patios, fences, roofs, gutters, solar. Follow along — and if your place needs some love, the booking link’s below. 🙏",
+     "“Hey San Antonio — I’m Jacob. I’m 24, I’m from right here, and I just started something I’m really proud of: Varsco Pressure Washing. Here’s what makes us a little different. I run the whole office side with AI — which sounds fancy, but what it actually means for you is simple: you get an answer in seconds instead of days, a fair quote fast, and a young local guy who shows up and does the work right. Driveways, house washing, patios, fences, roofs, gutters, solar panels — if it’s dirty, I’ll make it look new again. I’ll be sharing the whole journey here on this page. If your place needs some love, the booking link’s below. And if you just want to watch a local kid try to build something… welcome aboard.”",
+     ["AIYOU: AI-Jacob friendly intro — a handshake, not an ad.","HIGG: cinematic San Antonio / truck establishing shots.","Booking link in the post copy."]),
+   S("Why I’m building this with AI (and why that’s good for you)","I’m a one-man shop — but AI lets me run like a big company.",
+     "Why does a pressure-washing guy talk about AI? 🤖 Because it lets me — a one-man operation — answer you in seconds, quote you fast, and never drop the ball. You get big-company responsiveness with small-business care. That’s the whole idea behind Varsco. #sanantonio #smallbusiness",
+     "“Quick question — have you ever messaged a contractor… and waited three days for a reply? Maybe never heard back at all? That right there is the exact problem I built Varsco to fix. I’m a one-man shop, but I run the office side with AI. So when you ask for a quote, you hear back in seconds — not whenever I finish a driveway and remember to check my phone. Big-company speed. Small-business care. And the same guy who quotes you is the guy who shows up at your door. That’s the whole idea. The robot handles the paperwork. I handle your home like it’s mine. Try it yourself — request a quote below and time how fast you hear back.”",
+     ["AIYOU: AI-Jacob talking, approachable.","SCREEN: a quick peek at the fast-quote system.","Keep it about THEM, not the gadgets."]),
+   S("Behind the scenes: building Varsco","For the locals following the build — here’s the work behind it.",
+     "A peek behind the curtain 👀 building Varsco from the ground up — the website, the systems, the gear. Sharing the journey for my fellow San Antonio folks rooting for a young local business. More soon! #buildinpublic #sanantonio #supportlocal",
+     "“A little peek behind the curtain for everybody following along. This is what building Varsco actually looks like. The website coming together piece by piece. The booking system getting wired up. The truck getting loaded before sunrise. The late nights at this desk with my AI grinding through the office work next to me. Starting a business at 24 is equal parts exciting and terrifying — and I want to show you the real version, not just the highlight reel. San Antonio’s been good to me, and there’s nothing like building something in your own city, for your own neighbors. More soon. And if you’re rooting for a young local business — a follow genuinely helps more than you know.”",
+     ["AIYOU: AI-Jacob narrating the build candidly.","HIGG: cinematic setup / gear b-roll.","Community, ‘we’re in this together’ tone."]),
+   S("The goal: my first $10,000 — here in SA","Setting a real goal, out loud, for San Antonio to witness.",
+     "Putting it out there 💪 my goal is to earn my first $10,000 with Varsco, right here in San Antonio. No investors, no shortcuts — just hard work + smart tools + this community. Follow along and watch it happen. Know someone who needs their driveway or home washed? Send them my way. 🙏",
+     "“I’m putting a real goal out there, in public, so I can’t back out of it. My first ten thousand dollars — earned with Varsco, right here in San Antonio. No investors. No shortcuts. Just hard work, smart tools, and hopefully… this community. I’m going to post the honest numbers as I go. The jobs. The costs. The slow weeks. All of it. And if you want to help a young local business get off the ground, it’s the simplest thing in the world: follow along — and if you know one neighbor whose driveway or house needs a refresh, send them my way. Every single job gets me closer. Let’s see how fast San Antonio can do this.”",
+     ["AIYOU: AI-Jacob, sincere, to camera (or a strong branded graphic).","Invite shares/referrals explicitly in copy.","Booking link."]),
+   S("🚨 MILESTONE: my first SA customer — thank you","The community showed up. Here’s the first job.",
+     "IT HAPPENED 🙏 Varsco just landed its first paying customer here in San Antonio. To everyone who followed, liked, and shared — thank you, genuinely. This is just the start. Who’s next? 👇 #sanantonio #smallbusiness #grateful",
+     "“San Antonio… it happened. Varsco just got its first paying customer. A real neighbor, a real home, booked through the little system I built with AI. Now — I know one job isn’t an empire. But every business that ever mattered started with one person saying yes first. And to everybody here who followed, liked, shared, and told me to keep going during the slow weeks… that yes belongs to you too. Thank you. Genuinely. The first job goes on the calendar this week, and you’ll see the before-and-after right here on this page. So — who’s next? The booking link is below. Let’s keep this thing rolling.”",
+     ["AIYOU: AI-Jacob, genuine gratitude.","JOB: a shot from the first real job (REAL footage, once landed).","Warm tone; soft CTA."]),
+   S("First job done — look at this driveway","Real local proof, with a clear next step.",
+     "First Varsco driveway, done right ✅ (before & after below). This is the kind of work I’ll bring to your home, San Antonio. Spots are limited while I’m getting started — grab yours with the link. #beforeandafter #pressurewashing #sanantonio",
+     "“First Varsco driveway — done. And I can’t stop looking at it. Check the before and after. That’s years of buildup, gone in an afternoon. And that’s the standard every single job gets — because right now, every customer is the most important customer I’ve ever had. That’s the advantage of booking a company while it’s young and hungry. San Antonio, this is exactly what I’ll bring to your place too. I’m brand new, which means my schedule still has openings… and I promise that won’t last forever. The booking link is below. Grab a spot — and your driveway gets the same treatment this one did.”",
+     ["JOB: clean before/after photos or short clip (REAL footage, once landed).","AIYOU: AI-Jacob optional intro.","Clear booking CTA + light scarcity."]),
+   S("SA homeowners: what the heat is doing to your driveway","Local-pain education that leads to a booking.",
+     "San Antonio homeowners 🌵 our heat + humidity grows algae and grime on north-facing driveways, fences, and roofs faster than you’d think — and it eats your curb appeal (and resale value). Here’s what to watch for 👇 (and yes, I can fix it). #sanantonio #homemaintenance #curbappeal",
+     "“San Antonio homeowners — quick heads up about what our weather is quietly doing to your home. The heat and humidity here grow algae and grime on driveways, fences, and roofs faster than almost anywhere in the country. Especially the north-facing sides that never fully dry out. Most people stop seeing it, because it builds up slowly. But buyers see it. Neighbors see it. And it eats your curb appeal — and your resale value. Here’s a test: walk outside and look at your north-facing fence. I’ll wait. If it’s darker than you remember… that’s not age. That’s growth. And it cleans right off when it’s done properly. That’s literally my job. Booking link below if your place needs it.”",
+     ["AIYOU: AI-Jacob pointing out what to look for.","HIGG: cinematic ‘grimy fence/driveway’ b-roll (swap to JOB once real photos exist).","Booking link at the end."]),
+   S("How AI helps me serve you better","Faster quotes, no missed messages — that’s the AI part.",
+     "Ever message a contractor and… crickets? 🦗 Not here. With the system I built, you get a fast reply and a clear quote — every time. That’s how AI actually helps YOU as a customer. Try it — request a quote below. #customerservice #sanantonio #smallbusiness",
+     "“Let me show you the part of my business I’m most proud of — and it’s not the pressure washer. When you request a quote from Varsco, an AI system I built answers you in seconds. Seconds. It gathers the details, asks the right questions, and gets your quote moving — even if I’m elbow-deep in a driveway across town. Then I show up and do the work personally. That’s the whole point of the technology. It’s not replacing the human — it’s making sure the human never leaves you hanging. Fast answers. Fair quotes. Work done right. Don’t take my word for it — hit the booking link below and time how fast you hear back.”",
+     ["SCREEN: the fast-reply / quote flow.","AIYOU: AI-Jacob reassuring, friendly.","Direct CTA to request a quote."]),
+   S("Know a neighbor who needs this? (share)","A simple ask to the community — share with one person.",
+     "Quick favor, San Antonio 🙏 if you know one neighbor whose driveway, patio, or home could use a refresh, share this with them. Helping a young local business get going means the world — and they’ll thank you for the hookup. 💙 #supportlocal #sanantonio",
+     "“San Antonio — a small favor that costs you nothing. If you know ONE neighbor whose driveway, patio, or house could use a refresh… share this post with them. That’s it. That’s the favor. I’m 24, I’m just getting Varsco off the ground, and honest word of mouth from this community is worth more than any ad an AI could ever write — and trust me, mine writes good ads. Here’s how it plays out: they get a great job at a fair price. You get credit for the hookup. And a young local business gets one step closer to making it. Everybody wins. Thank you — genuinely. The booking link’s right below for whoever you send.”",
+     ["AIYOU: AI-Jacob warm direct ask (or a clean branded graphic).","One clear action in copy: ‘share with one person’.","Booking link for the referred."]),
+   S("Month 1 thank-you + what’s next","Recap the journey for the community; tease month 2.",
+     "One month of Varsco 🙌 thanks to this community we went from an idea to real customers in San Antonio. Here’s what I learned — and what’s coming next. If your home’s on the list for a refresh, now’s a great time. 👇 #sanantonio #smallbusiness #buildinpublic",
+     "“One month of Varsco, San Antonio. Thirty days ago this was an idea, an AI, and a guy with a pressure washer. Today? Real customers. Real before-and-afters. And the first real dollars toward the ten-thousand-dollar goal. Here’s what month one taught me: speed wins customers. Quality keeps them. And this community shows up for local businesses in a way that honestly caught me off guard. Thank you for that. Month two is about more jobs, more transformations, and a real push toward that goal. If your home’s been sitting on the ‘eventually’ list — now’s a great time. Early customers get my absolute best, every single time. Link below. Let’s make month two even better.”",
+     ["AIYOU: AI-Jacob recap, warm and grateful.","JOB: photos from month 1’s real wins (once gathered).","Soft CTA + ‘follow for month 2’."]),
+   /* ---- reserve ---- */
+   S("Why I started this at 24","The personal story behind Varsco.",
+     "Why I started a pressure-washing business at 24 👇 the honest version. #sanantonio #entrepreneur #myStory",
+     "“People keep asking me the same three questions. Why pressure washing? Why now? And why at 24? So here’s the honest answer. I wanted something real. Not a dropshipping store, not a crypto play — a business where you do good work, for real neighbors, and you can see the difference you made before you drive away. Pressure washing is exactly that. And the AI part? That’s because I’m one person without a team or a big budget — and for the first time in history, that doesn’t disqualify me. The tools finally caught up to the dreamers. So: why at 24? Because the worst case is I learn more in a year than most people learn in ten. And the best case… well. Follow along and watch the best case.”",
+     ["AIYOU: AI-Jacob, personal, to camera (authentic > polished).","Light booking link at end.","Keep it intimate, story-first."]),
+   S("What ‘SAWS-permitted’ means for you","A trust signal most homeowners don’t know to ask about.",
+     "What does ‘SAWS-permitted’ actually mean — and why should you care? 💧 (a 30-second explainer for SA homeowners). #sanantonio #trust #pressurewashing",
+     "“Quick 30-second thing every San Antonio homeowner should know before hiring ANY pressure washer. Ask them one question: are you SAWS-permitted? Here’s why it matters. All that dirty wash water — the grime, the chemicals — has to go somewhere. Done wrong, it runs straight into our storm drains, and that’s not just bad for the city… it can come back on YOU as the homeowner. A SAWS permit means the work is done by the book, the runoff is handled right, and nobody gets a surprise letter. Varsco is SAWS-permitted — it was step one, before the website, before any of it. Cheap and careless or done right — that one question tells you which one you’re hiring.”",
+     ["AIYOU: AI-Jacob explaining simply.","SCREEN/graphic: the permit / trust badge.","Trust-build tone — no hard sell."]),
+   S("Neighborhood spotlight","Featuring a San Antonio area I serve.",
+     "Shout-out to [neighborhood] 📍 loved working in your area. If you’re nearby and want your driveway or home refreshed, I’ve got you. #sanantonio #local #neighborhood",
+     "“Shout-out to [neighborhood], San Antonio. Spent the day working out here and I’ve got to say it — this is one of those parts of town where people genuinely take pride in their homes. You can tell. Loved every minute of it. Quick before-and-after from today’s job so you can see what a difference an afternoon makes. If you’re in [neighborhood] or anywhere nearby and your driveway, patio, or house could use that same refresh — I’m literally already in the area. Booking link below. And to the folks who waved or came out to ask questions today… this is exactly why I love working in my own city. See you around.”",
+     ["JOB: on-location / job shot (REAL once available).","HIGG: cinematic neighborhood b-roll meanwhile.","AIYOU: AI-Jacob naming the area + CTA."]),
+   S("Get your home ready for SA summer","Seasonal hook tied to a clear service.",
+     "San Antonio summer is coming ☀️ here’s how to get your home’s exterior ready (and avoid the algae + grime that creeps in). Booking early-season spots now 👇 #sanantonio #summer #homemaintenance",
+     "“San Antonio — summer is coming, and your home’s exterior knows it before you do. That combination we get of heat, humidity, and the occasional storm? It supercharges algae and grime growth on driveways, patios, fences, and roofs. The smart move is cleaning BEFORE the deep heat sets in — it protects the surfaces, it’s easier on your plants, and your place looks incredible for the season when everybody’s actually outside to see it. I’m booking early-season spots now, and the calendar genuinely fills from here. If your home needs a pre-summer reset, the link is below. Get on the list — your future summer self will thank you.”",
+     ["AIYOU: AI-Jacob with the seasonal tip.","HIGG: cinematic summer-home b-roll.","Light scarcity on early slots + CTA."])
+  ]
+ }
+};
+
+/* ---------- state ---------- */
+var KEY='vc_studio_v3';
+var LIVE=10;
+var STAT={idea:{l:'Idea',c:'#8aa0bb'},approved:{l:'Approved',c:'#43a6ff'},filming:{l:'Filming',c:'#c8a6ff'},ready:{l:'Ready to Post',c:'#FFB323'},posted:{l:'Posted',c:'#3ddc84'}};
+var ORDER=['idea','approved','filming','ready','posted'];
+var PLATS=[['tiktok','TikTok'],['instagram','Instagram'],['facebook','Facebook']];
+var uid=1;
+
+function build(){
+  var st={};
+  Object.keys(DEFAULTS).forEach(function(p){
+    var ideas=DEFAULTS[p].ideas.map(function(o){return Object.assign({id:p+'-'+(uid++)},o);});
+    st[p]={active:ideas.slice(0,LIVE),reserve:ideas.slice(LIVE)};
+  });
+  return st;
+}
+var STATE;
+try{var raw=JSON.parse(localStorage.getItem(KEY));STATE=(raw&&raw.tiktok)?raw:build();}catch(e){STATE=build();}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(STATE));}catch(e){}}
+var CUR=(function(){try{return localStorage.getItem(KEY+'_tab')||'tiktok';}catch(e){return 'tiktok';}})();
+
+/* ---------- helpers ---------- */
+function esc(s){return String(s==null?'':s).replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
+function hexa(hex,a){var n=parseInt(hex.slice(1),16);return 'rgba('+((n>>16)&255)+','+((n>>8)&255)+','+(n&255)+','+a+')';}
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('show');},1900);}
+function shotHTML(s){
+  var tg='', body=s;
+  var m=s.match(/^(AIYOU|HIGG|SCREEN|JOB):\s*/);
+  if(m){var k=m[1];body=s.slice(m[0].length);
+    var map={AIYOU:['aiyou','AI · You'],HIGG:['higg','AI · B-roll'],SCREEN:['screen','Screen'],JOB:['job','Real · Job']};
+    tg='<span class="tag '+map[k][0]+'">'+map[k][1]+'</span>';}
+  return '<li>'+tg+esc(body)+'</li>';
+}
+
+/* ---------- actions ---------- */
+function setStat(id,st){
+  var a=STATE[CUR].active,i=a.map(function(x){return x.id;}).indexOf(id);
+  if(i<0)return; a[i].status=st; save(); render(); toast('→ '+STAT[st].l);
+}
+function decline(id){
+  var pf=STATE[CUR],a=pf.active,i=a.map(function(x){return x.id;}).indexOf(id);
+  if(i<0)return;
+  a.splice(i,1);
+  if(pf.reserve.length){a.splice(i,0,pf.reserve.shift());toast('Declined — fresh idea added');}
+  else{a.splice(i,0,{id:CUR+'-'+(uid++),status:'idea',title:'New idea slot',hook:'Reserve empty — ask Claude in chat to pitch a fresh idea for this slot.',caption:'—',script:'—',shots:['Tell Claude what angle you want and I’ll write the next one.']});toast('Declined — reserve empty, asked Claude');}
+  save(); render();
+}
+function copyJSON(){
+  var out={};Object.keys(STATE).forEach(function(p){out[p]=STATE[p].active;});
+  var s=JSON.stringify(out,null,2);
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(s).then(function(){toast('Plan copied as JSON');},function(){toast('Copy failed');});}
+  else toast('Clipboard unavailable');
+}
+function resetAll(){if(confirm('Reset all three tabs to the original plan? Your approvals/statuses will be cleared.')){STATE=build();save();render();toast('Reset to defaults');}}
+
+/* ---------- render ---------- */
+function actions(c){
+  var s=c.status, b='';
+  function B(cls,lbl,fn){return '<button class="btn '+cls+'" onclick="'+fn+'">'+lbl+'</button>';}
+  if(s==='idea')      b=B('prim','✓ Approve',"setStat('"+c.id+"','approved')")+B('no','Decline',"decline('"+c.id+"')");
+  else if(s==='approved') b=B('adv','🎬 Start filming',"setStat('"+c.id+"','filming')")+B('no','Remove',"decline('"+c.id+"')");
+  else if(s==='filming')  b=B('adv','✓ Mark ready',"setStat('"+c.id+"','ready')")+B('no','Remove',"decline('"+c.id+"')");
+  else if(s==='ready')    b=B('go','🚀 Mark posted',"setStat('"+c.id+"','posted')")+B('no','Remove',"decline('"+c.id+"')");
+  else                    b=B('ghost','↺ Reset to idea',"setStat('"+c.id+"','idea')")+B('no','Archive',"decline('"+c.id+"')");
+  return '<div class="acts">'+b+'</div>';
+}
+function cardHTML(c){
+  var sc=STAT[c.status]||STAT.idea;
+  return '<div class="card"><div class="ch"><div class="ct">'+esc(c.title)+'</div>'+
+    '<span class="status" style="background:'+hexa(sc.c,.16)+';color:'+sc.c+'">'+sc.l+'</span></div>'+
+    (c.hook?'<div class="hk">'+esc(c.hook)+'</div>':'')+
+    '<details><summary>📝 Caption <span class="pl">+</span></summary><div class="dbody cap">'+esc(c.caption)+'</div></details>'+
+    '<details><summary>🎬 Script / Voiceover <span class="pl">+</span></summary><div class="dbody">'+esc(c.script)+'</div></details>'+
+    '<details><summary>🎥 Shots <span class="pl">+</span></summary><ul class="shots">'+c.shots.map(shotHTML).join('')+'</ul></details>'+
+    actions(c)+'</div>';
+}
+function render(){
+  document.getElementById('tabs').innerHTML=PLATS.map(function(p){
+    var on=p[0]===CUR;return '<button class="tab'+(on?' on':'')+'" style="--tc:'+DEFAULTS[p[0]].color+'" onclick="go(\''+p[0]+'\')"><span class="d"></span>'+p[1]+'</button>';
+  }).join('');
+  var d=DEFAULTS[CUR],a=STATE[CUR].active;
+  var counts={};ORDER.forEach(function(k){counts[k]=0;});a.forEach(function(c){counts[c.status]=(counts[c.status]||0)+1;});
+  var cstr=ORDER.map(function(k){return '<span><b>'+counts[k]+'</b> '+STAT[k].l+'</span>';}).join('');
+  var h='<div class="vision" style="--tc:'+d.color+'"><div class="vh"><span class="vname">'+PLATS.filter(function(p){return p[0]===CUR;})[0][1]+'</span><span class="vvibe">'+d.vibe+'</span></div>'+
+    '<div class="vd">'+d.desc+'</div><div class="vmeta"><span class="vchip"><b>Cadence:</b> '+d.cadence+'</span><span class="vchip"><b>Style:</b> '+d.style+'</span><span class="vchip"><b>Drives:</b> '+d.driver+'</span></div></div>'+
+    '<div class="counts">'+cstr+' &nbsp;·&nbsp; <span>'+a.length+'/10 live · '+STATE[CUR].reserve.length+' in reserve</span></div>'+
+    a.map(cardHTML).join('');
+  document.getElementById('view').innerHTML=h;
+}
+function go(p){CUR=p;try{localStorage.setItem(KEY+'_tab',p);}catch(e){}render();window.scrollTo({top:0,behavior:'smooth'});}
+
+/* ===== FOUNDER-STORY REELS — "Start before you're ready" series =====
+   NEW PILLAR. Unlike the AI-spine ideas above, these are 100% REAL footage +
+   Jacob's REAL voice (not the AI avatar/voice model). Goal: inspire the viewer
+   to start — highly shareable/saveable. Masters already prepped & ready to cut.
+   Injected non-destructively: each appears once, existing curation preserved. */
+var FOUNDER_REELS=[
+ {id:'founder-1y',plat:'tiktok',
+  title:"Start before you're ready — “A year from now”",
+  hook:"A year from now, you'll wish you started today.",
+  caption:"a year from now you'll wish you started today 🙏 building Varsco before I feel ready, here in San Antonio. consider this your sign → #startup #buildinpublic #sanantonio #motivation #smallbusiness",
+  script:"“A year from now, you'll wish you started today. I kept telling myself that… until I finally listened. No perfect plan. No safety net. Just a decision. This is Varsco — day one, here in San Antonio. I don't know exactly how it ends. But I know I'll never have to wonder ‘what if.’ Whatever you've been putting off — the time's gonna pass anyway. So start it. Build it. Become it. The version of you that you want… starts today.”",
+  shots:["REAL — office desk grind (brightened + stabilized): slow push-in under the hook line.","REAL — founder portrait, somber hold on ‘I kept telling myself.’","JOB: surface cleaner on the driveway — the dirty/clean line (proof it's real).","REAL — founder portrait, eye contact on ‘never wonder what if.’","Text: ‘A YEAR FROM NOW…’ open; clean white captions; logo end-card.","PROD: REAL footage + Jacob's REAL voice (not AI). Masters prepped & ready to cut."]},
+ {id:'founder-ugly',plat:'tiktok',
+  title:"Start before you're ready — “The first step is ugly”",
+  hook:"Nobody tells you the first step is ugly.",
+  caption:"nobody tells you the first step is ugly 😅 no customers, no clue — just betting on myself. Varsco, San Antonio. start anyway → #buildinpublic #entrepreneur #sanantonio #startup #realtalk",
+  script:"“Nobody tells you the first step is ugly. No customers. No clue. No guarantee it works. Just you — betting on yourself when it'd be easier to quit. That's exactly where I am right now. Starting Varsco before it looks impressive, before I've got it all figured out. Because the perfect moment never actually shows up. You build it — one messy, honest step at a time. If you've been waiting for permission to begin… stop waiting. The beginning isn't pretty. But it's everything.”",
+  shots:["REAL — office desk grind, dark/honest, under ‘no clue, no guarantee.’","JOB: surface cleaner + foam — the messy-but-satisfying middle.","JOB: the clean-line reveal on ‘one messy, honest step at a time.’","REAL — founder portrait, quiet conviction on the close.","Text emphasis: ‘the beginning isn't pretty. but it's everything.’","PROD: REAL footage + Jacob's REAL voice (not AI)."]},
+ {id:'founder-sign',plat:'instagram',
+  title:"Start before you're ready — “This is your sign”",
+  hook:"If you've been waiting for a sign to start… this is it.",
+  caption:"if you've been waiting for a sign to start — this is it 🤍 building Varsco from the ground up in San Antonio, before I feel ready. you don't need perfect. you need to start. #buildinpublic #entrepreneur #sanantonio #motivation #startbeforeyoureready",
+  script:"“If you've been waiting for a sign to finally start… this is it. I'm not special. I don't have it all figured out. I just got tired of watching everyone else live the life I wanted. So I started. Scared. Unsure. Before I was ready. This is Varsco — my first step, here in San Antonio. It's not perfect. But it's real. And it's mine. Whatever you've been putting off — the business, the dream, the leap — you don't need permission. You don't need perfect. You just need to start.”",
+  shots:["REAL — office desk grind: slow push-in, moody, under the hook.","REAL — founder portrait on ‘I'm not special… I got tired of watching.’","JOB: surface cleaner driveway (the dirty/clean line) — the proof it's real.","JOB: clean reveal → clean San Antonio home on ‘real, and it's mine.’","REAL — founder smile + logo end-card; clean white captions, no clutter.","PROD: REAL footage + Jacob's REAL voice (not AI)."]},
+ {id:'founder-zero',plat:'instagram',
+  title:"Start before you're ready — “Everybody starts at zero”",
+  hook:"Every business you admire started exactly here — at zero.",
+  caption:"every business you admire started at zero. one nervous first step. this is mine — Varsco, San Antonio, day one 🤍 nobody starts ready #buildinpublic #smallbusiness #sanantonio #motivation #day1",
+  script:"“Every business you admire started exactly here. Zero customers. Zero proof. One nervous first step. Nobody starts ready. They start scared — and figure it out on the way. This is me, at zero. Building Varsco from nothing, here in San Antonio. One driveway. One small win. One day at a time. The only difference between you and the person you want to be… is they started before they felt ready. This is what zero looks like — right before it turns into something.”",
+  shots:["REAL — office desk grind for ‘zero customers, zero proof.’","REAL — founder portrait, honest, on ‘this is me, at zero.’","JOB: surface cleaner — ‘one driveway, one small win.’","JOB: clean result → house on ‘right before it turns into something.’","Text: ‘THIS IS WHAT ZERO LOOKS LIKE’; logo end-card.","PROD: REAL footage + Jacob's REAL voice (not AI)."]}
+];
+var FR_SEED_KEY=KEY+'_founder_seed_v1';
+function ensureFounderReels(){
+  try{if(localStorage.getItem(FR_SEED_KEY))return;}catch(e){} // seed once — respect declines on later loads
+  var ch=false;
+  FOUNDER_REELS.forEach(function(r){var pf=STATE[r.plat];if(!pf)return;
+    var has=pf.active.concat(pf.reserve).some(function(x){return x.id===r.id;});
+    if(!has){pf.active.unshift({id:r.id,status:'idea',title:r.title,hook:r.hook,caption:r.caption,script:r.script,shots:r.shots});ch=true;}});
+  try{localStorage.setItem(FR_SEED_KEY,'1');}catch(e){}
+  if(ch)save();
+}
+ensureFounderReels();
+render();
+</script>
+</body>
+</html>
